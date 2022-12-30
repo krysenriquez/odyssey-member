@@ -7,7 +7,7 @@ import {useIntl} from 'react-intl'
 import {getUserByToken, login} from '../api'
 import {useAuth} from '@/providers/AuthProvider'
 import {toast} from 'react-toastify'
-import {RegistrationModal} from '@/features/registration/components/RegistrationModal'
+import {RegistrationModal} from '@/features/account/components/Registration/RegistrationModal'
 
 const loginSchema = Yup.object().shape({
   username: Yup.string()

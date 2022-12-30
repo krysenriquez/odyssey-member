@@ -56,7 +56,6 @@ class StickyComponent {
     }
 
     const st = getScrollTop()
-
     // Reverse scroll mode
     if (reverse === true) {
       // Release on reverse scroll mode
@@ -67,8 +66,8 @@ class StickyComponent {
         }
 
         if (this.eventTriggerState === true) {
-          EventHandlerUtil.trigger(this.element, 'kt.sticky.on')
-          EventHandlerUtil.trigger(this.element, 'kt.sticky.change')
+          EventHandlerUtil.trigger(this.element, 'sticky.on')
+          EventHandlerUtil.trigger(this.element, 'sticky.change')
 
           this.eventTriggerState = false
         }
@@ -80,8 +79,8 @@ class StickyComponent {
         }
 
         if (this.eventTriggerState === false) {
-          EventHandlerUtil.trigger(this.element, 'kt.sticky.off')
-          EventHandlerUtil.trigger(this.element, 'kt.sticky.change')
+          EventHandlerUtil.trigger(this.element, 'sticky.off')
+          EventHandlerUtil.trigger(this.element, 'sticky.change')
 
           this.eventTriggerState = true
         }
@@ -91,7 +90,7 @@ class StickyComponent {
       return
     }
 
-    // Classic scroll mode
+    // Classic scroll mode this is where the error happens
     if (st > offsetNum) {
       if (document.body.hasAttribute(this.attributeName) === false) {
         this.enable()
@@ -99,8 +98,8 @@ class StickyComponent {
       }
 
       if (this.eventTriggerState === true) {
-        EventHandlerUtil.trigger(this.element, 'kt.sticky.on')
-        EventHandlerUtil.trigger(this.element, 'kt.sticky.change')
+        EventHandlerUtil.trigger(this.element, 'sticky.on')
+        EventHandlerUtil.trigger(this.element, 'sticky.change')
         this.eventTriggerState = false
       }
     } else {
@@ -111,8 +110,8 @@ class StickyComponent {
       }
 
       if (this.eventTriggerState === false) {
-        EventHandlerUtil.trigger(this.element, 'kt.sticky.off')
-        EventHandlerUtil.trigger(this.element, 'kt.sticky.change')
+        EventHandlerUtil.trigger(this.element, 'sticky.off')
+        EventHandlerUtil.trigger(this.element, 'sticky.change')
         this.eventTriggerState = true
       }
     }

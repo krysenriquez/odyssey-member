@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import {useEffect, useState} from 'react'
 import clsx from 'clsx'
 import {Link} from 'react-router-dom'
 import {CustomSVG} from '@/components/elements/SVG/CustomSVG'
@@ -7,65 +8,78 @@ import {useLayout} from '@/providers/layout/LayoutProvider'
 import {Topbar} from './Topbar'
 import {DefaultTitle} from './page-title/DefaultTitle'
 
+const calculateStickyOffset = (header) => {
+  if (header.fixed.desktop && header.fixed.tabletAndMobile) {
+    return '{default: "200px", lg: "300px"}'
+  }
+
+  if (header.fixed.desktop && !header.fixed.tabletAndMobile) {
+    return '{lg: "300px"}'
+  }
+
+  if (header.fixed.tabletAndMobile && !header.fixed.desktop) {
+    return '{default: "200px", lg: false}'
+  }
+
+  return ''
+}
+
+const calculateShowSticky = (header) => {
+  return (
+    (header.fixed.desktop && header.fixed.tabletAndMobile) ||
+    (header.fixed.desktop && !header.fixed.tabletAndMobile) ||
+    (header.fixed.tabletAndMobile && !header.fixed.desktop)
+  )
+}
+
 export function HeaderWrapper() {
   const {config, classes, attributes} = useLayout()
   const {header} = config
+  const [stickyOffset, setStickyOffset] = useState(calculateStickyOffset(header))
+
+  const [showSticky, setShowSticky] = useState(calculateShowSticky(header))
+  useEffect(() => {
+    setStickyOffset(calculateStickyOffset(header))
+    setShowSticky(calculateShowSticky(header))
+  }, [header])
 
   return (
     <div
       id='kt_header'
-      className={clsx('header', classes.header.join(' '), 'align-items-stretch')}
+      className={clsx('app-header', classes.header.join(' '))}
       {...attributes.headerMenu}
+      data-sticky={showSticky ? 'true' : 'false'}
+      data-sticky-activate={showSticky ? 'true' : 'false'}
+      data-sticky-name='app-header-sticky'
+      data-sticky-offset={stickyOffset}
     >
       <div
         className={clsx(
-          'container container-xxl',
-          classes.headerContainer.join(' '),
-          'd-flex align-items-stretch justify-content-between'
+          'app-container d-flex align-items-stretch justify-content-between',
+          classes.headerContainer.join(' ')
         )}
-      ></div>
+      >
+        <div className='app-header-wrapper d-flex flex-grow-1 align-items-stretch justify-content-between'>
+          <div className='app-header-logo d-flex flex-shrink-0 align-items-center justify-content-between justify-content-lg-center'>
+            <button
+              className='btn btn-icon btn-color-gray-600 btn-active-color-primary ms-n3 me-2 d-flex d-lg-none'
+              id='kt_app_sidebar_toggle'
+            >
+              <CustomSVG path='/public/media/icons/hamburger.svg' className='svg-icon-1' />
+            </button>
+            <div className='d-flex align-items-center flex-grow-1 flex-lg-grow-0'>
+              <Link to='/dashboard'>
+                <img
+                  alt='Logo'
+                  src={toAbsoluteUrl('/public/media/logos/tci.png')}
+                  className='h-30px h-lg-70px'
+                />
+              </Link>
+            </div>
+          </div>
+          <Topbar />
+        </div>
+      </div>
     </div>
-    // <div
-    //   id='kt_header'
-    //   className={clsx('header', classes.header.join(' '), 'align-items-stretch')}
-    //   {...attributes.headerMenu}
-    // >
-    //   {/* begin::Container */}
-    //   <div
-    //     className={clsx(
-    //       classes.headerContainer.join(' '),
-    //       'd-flex align-items-stretch justify-content-between'
-    //     )}
-    //   >
-    //     {/* begin::Aside mobile toggle */}
-    //     <div className='d-flex align-items-center d-lg-none ms-n1 me-2' title='Show aside menu'>
-    //       <div
-    //         className='btn btn-icon btn-active-color-primary w-30px h-30px w-md-40px h-md-40px'
-    //         id='kt_aside_mobile_toggle'
-    //       >
-    //         <CustomSVG path='/public/media/icons/hamburger.svg' className='svg-icon-1' />
-    //       </div>
-    //     </div>
-    //     {/* end::Aside mobile toggle */}
-
-    //     {/* begin::Mobile logo */}
-    //     <div className='d-flex align-items-center flex-grow-1 flex-lg-grow-0'>
-    //       <Link to='/dashboard' className='d-lg-none'>
-    //         <img
-    //           alt='Logo'
-    //           src={toAbsoluteUrl('/public/media/logos/demo6.svg')}
-    //           className='h-30px'
-    //         />
-    //       </Link>
-    //     </div>
-    //     {/* end::Mobile logo */}
-
-    //     {/* begin::Topbar */}
-    //     <div className={'d-flex align-items-stretch justify-content-end flex-lg-grow-1'}>
-    //       <Topbar />
-    //     </div>
-    //   </div>
-    //   {/* end::Container */}
-    // </div>
   )
 }

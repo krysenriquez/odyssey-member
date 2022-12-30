@@ -10,7 +10,7 @@ const Footer = () => {
       <div
         className={clsx(
           classes.footerContainer,
-          'd-flex flex-column flex-md-row align-items-center justify-content-end'
+          ' d-flex flex-column flex-md-row align-items-center justify-content-end'
         )}
       >
         <div className='order-2 order-md-1'>

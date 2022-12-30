@@ -1,6 +1,7 @@
 import {Suspense} from 'react'
 import {Routes, Route, BrowserRouter, Outlet} from 'react-router-dom'
 import {AuthInit, useAuth} from '@/providers/AuthProvider'
+import {AccountProvider} from '@/providers/AccountProvider'
 import {Logout} from '@/features/auth/components/Logout'
 import {I18nProvider} from '@/providers/i18n/i18nProvider'
 import {LayoutProvider} from '@/providers/layout/LayoutProvider'
@@ -19,9 +20,9 @@ const App = () => {
       <I18nProvider>
         <LayoutProvider>
           <AuthInit>
-            {/* <EnumsListQueryProvider> */}
-            <Outlet />
-            {/* </EnumsListQueryProvider> */}
+            <AccountProvider>
+              <Outlet />
+            </AccountProvider>
             <ToastContainer />
             <MasterInit />
           </AuthInit>
@@ -39,7 +40,6 @@ export const AppRoutes = () => {
         <Route element={<App />}>
           {/* <Route path='error/*' element={<ErrorsPage />} /> */}
           <Route path='logout' element={<Logout />} />
-          <Route path='/*' element={<PrivateRoutes />} />
           {auth ? (
             <>
               <Route path='/*' element={<PrivateRoutes />} />

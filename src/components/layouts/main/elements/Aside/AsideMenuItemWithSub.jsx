@@ -1,10 +1,12 @@
+import React from 'react'
 import clsx from 'clsx'
 import {useLocation} from 'react-router'
-import {CustomSVG} from '@/components/elements/SVG/CustomSVG'
 import {checkIsActive} from '@/utils/checkIsActive'
+import {CustomSVG} from '@/components/elements/SVG/CustomSVG'
 import {useLayout} from '@/providers/layout/LayoutProvider'
 
-const AsideMenuItemWithSub = ({children, to, title, icon, fontIcon, hasBullet}) => {
+const AsideMenuItemWithSub = (props) => {
+  const {children, to, title, icon, fontIcon, hasBullet} = props
   const {pathname} = useLocation()
   const isActive = checkIsActive(pathname, to)
   const {config} = useLayout()
@@ -13,7 +15,6 @@ const AsideMenuItemWithSub = ({children, to, title, icon, fontIcon, hasBullet}) 
   return (
     <div
       className={clsx('menu-item', {'here show': isActive}, 'menu-accordion')}
-      data-menu-sub='accordion'
       data-menu-trigger='click'
     >
       <span className='menu-link'>

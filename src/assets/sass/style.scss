@@ -6,9 +6,8 @@
 @import "init";
 
 // Components
-@import "./core/components/components";
 @import "components/components";
 
 // Layout
+@import "layout/base/layout";
 @import "layout/layout";
-

@@ -19,7 +19,6 @@ const ActivityDrawer = () => (
     <div className='card shadow-none rounded-0'>
       <div className='card-header' id='kt_activities_header'>
         <h3 className='card-title fw-bolder text-dark'>Activity Logs</h3>
-
         <div className='card-toolbar'>
           <button
             type='button'

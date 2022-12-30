@@ -3,7 +3,7 @@ import {toAbsoluteUrl} from '@/utils/toAbsoluteUrl'
 
 export const AuthLayout = () => {
   return (
-    <>
+    <div className='d-flex flex-column flex-lg-row flex-column-fluid'>
       <div
         className='d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center'
         style={{backgroundImage: 'url(/public/media/misc/auth.png)'}}
@@ -60,6 +60,6 @@ export const AuthLayout = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }

@@ -1,0 +1,70 @@
+#binary-tree {
+  font-family: 'Readex Pro', sans-serif !important;
+}
+
+.boc-light {
+  background-color: transparent !important;
+}
+
+.edit-form-title {
+  font-family: 'Readex Pro', sans-serif !important;
+  font-size: 20px !important;
+}
+.ba-input {
+  > label {
+    font-family: 'Readex Pro', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+  }
+  > input {
+    font-family: 'Readex Pro', sans-serif !important;
+  }
+}
+.edit-form-avatar {
+  > svg {
+    height: 140px !important;
+    width: 140px !important;
+  }
+}
+.edit-form-header {
+  background-color: #d69a17 !important;
+}
+.edit-form-instruments {
+  min-height: 20px !important;
+}
+[data-n-id] {
+  rect {
+    fill: #d69a17;
+    &:hover {
+      filter: drop-shadow(2px 2px 2px #8e6711);
+    }
+  }
+  circle {
+    stroke: #d69a17;
+  }
+}
+[data-l-id] {
+  text {
+    font-size: 5rem !important;
+    transform: translate(0rem, -25px);
+  }
+}
+.node.addMember {
+  rect {
+    fill: #eb1821;
+    &:hover {
+      filter: drop-shadow(2px 2px 2px #91050c);
+    }
+  }
+  circle {
+    stroke: #eb1821;
+  }
+}
+.node.DRAFT {
+  rect {
+    fill: #fbe14f;
+  }
+  circle {
+    stroke: #fbe14f;
+  }
+}

@@ -1,0 +1,39 @@
+//
+// Wrapper
+//
+
+// General mode
+body {
+  background: var(--kt-header-bg);
+  background-repeat: no-repeat;
+}
+
+// Desktop mode
+@include media-breakpoint-up(lg) {
+  body {
+    background-size: $app-header-bg-height;
+  }
+
+  [data-app-sidebar-enabled='true'] {
+    .app-main {
+      margin-left: $app-sidebar-gap;
+    }
+  }
+
+  [data-app-sidebar-enabled='true'][data-app-sidebar-fixed='true'] {
+    .app-wrapper {
+      margin-left: 0 !important;
+    }
+
+    .app-main {
+      margin-left: $app-sidebar-base-width + $app-sidebar-gap;
+    }
+  }
+}
+
+// Tablet & mobile modes
+@include media-breakpoint-down(lg) {
+  body {
+    background-size: $app-header-bg-height-mobile;
+  }
+}
