@@ -16,9 +16,9 @@ const Topbar = () => {
   return (
     <div className='app-navbar flex-shrink-0'>
       {/* begin::Notifications */}
-      <div className='app-navbar-item ms-5'>
+      {/* <div className='app-navbar-item ms-5'>
         <HeaderNotifications toggleBtnClass='btn-color-gray-700 btn-active-color-primary w-40px h-40px' />
-      </div>
+      </div> */}
       {/* end::Notifications */}
       <div className='app-navbar-item ms-5'>
         <ThemeModeSwitcher toggleBtnClass='btn-color-gray-700 btn-active-color-primary w-40px h-40px' />

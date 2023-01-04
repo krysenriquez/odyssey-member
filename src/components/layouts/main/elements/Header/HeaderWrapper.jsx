@@ -45,7 +45,7 @@ export function HeaderWrapper() {
 
   return (
     <div
-      id='kt_header'
+      id='kt_app_header'
       className={clsx('app-header', classes.header.join(' '))}
       {...attributes.headerMenu}
       data-sticky={showSticky ? 'true' : 'false'}

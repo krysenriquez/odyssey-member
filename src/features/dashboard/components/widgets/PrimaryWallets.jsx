@@ -1,20 +1,41 @@
 import {useEffect, useState} from 'react'
+import clsx from 'clsx'
 import {useIntl} from 'react-intl'
-import {useWallet} from '@/features/wallets/store/WalletProvider'
+import {useWallet} from '@/features/wallets/stores/WalletProvider'
 import {getMemberWalletSummaryList} from '@/features/wallets/api'
 import {useAccount} from '@/providers/AccountProvider'
 import {toCurrency} from '@/utils/toCurrency'
-import {WalletSummaryModal} from '@/features/wallets/components/WalletSummary/WalletSummaryModal'
+import {CustomModal} from '@/components/elements/Modal/CustomModal'
+import {WalletSummary} from '@/features/wallets/components/WalletSummary/WalletSummary'
+
+const WalletSummaryModal = (prop) => {
+  const intl = useIntl()
+  const {isModalOpen, toggleModal, walletName} = prop
+
+  const value = {
+    isModalOpen: isModalOpen,
+    toggleModal: toggleModal,
+    dialogClassName: 'mw-900px',
+    title: intl.formatMessage({id: walletName}) + ' Summary',
+  }
+
+  return (
+    <CustomModal {...value}>
+      <WalletSummary />
+    </CustomModal>
+  )
+}
 
 export const PrimaryWallets = () => {
   const intl = useIntl()
   const {currentAccount} = useAccount()
   const {wallets, setWalletSummary} = useWallet()
-
+  const [walletName, setWalletName] = useState(undefined)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const getWalletSummary = async (wallet) => {
     await getMemberWalletSummaryList(currentAccount.accountId, wallet).then((response) => {
+      setWalletName(wallet)
       setWalletSummary(response)
       toggleModal()
     })
@@ -29,31 +50,21 @@ export const PrimaryWallets = () => {
       {wallets ? (
         wallets.map((wallet) => {
           return (
-            <div className='col-xl-6' key={wallet.wallet}>
+            <div className='col-xl-6 widget-wallet' key={wallet.wallet}>
               <div
-                className='card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-end h-xl-100 cursor-pointer hover-elevate-up shadow-sm parent-hover'
-                style={{
-                  backgroundColor: '#F1416C',
-                  backgroundImage:
-                    'url("/metronic8/demo37/assets/media/svg/shapes/wave-bg-red.svg")',
-                }}
+                className={clsx(
+                  'card card-flush h-xl-100 cursor-pointer hover-elevate-up shadow-sm parent-hover widget-content',
+                  {
+                    f_wallet: wallet.wallet == 'F_WALLET',
+                    b_wallet: wallet.wallet == 'B_WALLET',
+                  }
+                )}
                 onClick={() => {
                   getWalletSummary(wallet.wallet)
                 }}
               >
-                <div className='card-header pt-8'>
-                  <div
-                    className='d-flex flex-center rounded-circle h-60px w-60px'
-                    style={{
-                      border: '1px dashed rgba(255, 255, 255, 0.4)',
-                      backgroundColor: '#F1416C',
-                    }}
-                  >
-                    <i className='fonticon-incoming-call text-white fs-2qx lh-0' />
-                  </div>
-                </div>
                 <div className='card-body'>
-                  <span className='card-title fw-bold text-white fs-5 mb-3 d-block'>
+                  <span className='card-title fw-bold text-white fs-7 mb-3 d-block'>
                     {intl.formatMessage({id: wallet.wallet})}
                   </span>
                   <div className='d-flex align-items-center'>
@@ -61,8 +72,15 @@ export const PrimaryWallets = () => {
                       {toCurrency(wallet.total)}
                     </span>
                     <div className='fw-bold fs-6 text-white'>
-                      <span className='d-block'>Total</span>
-                      <span className=''>Balance</span>
+                      <span className='d-block'>Total Balance</span>
+                    </div>
+                  </div>
+                  <div className='d-flex align-items-center '>
+                    <span className='fs-2 text-danger fw-bold me-6'>
+                      {toCurrency(wallet.cashout)}
+                    </span>
+                    <div className='fw-bold fs-6 text-danger'>
+                      <span className='d-block'>Total Cashout</span>
                     </div>
                   </div>
                 </div>
@@ -73,7 +91,7 @@ export const PrimaryWallets = () => {
                     background: 'rgba(0, 0, 0, 0.15)',
                   }}
                 >
-                  <div className='fw-bold text-white py-2'>
+                  <div className='fw-bold text-white'>
                     <span className='fs-1 d-block'>{toCurrency(wallet.runningTotal)}</span>
                     <span className='opacity-50'>Total Accumulated</span>
                   </div>
@@ -85,8 +103,13 @@ export const PrimaryWallets = () => {
       ) : (
         <></>
       )}
-
-      {isModalOpen && <WalletSummaryModal isModalOpen={isModalOpen} toggleModal={toggleModal} />}
+      {isModalOpen && (
+        <WalletSummaryModal
+          isModalOpen={isModalOpen}
+          toggleModal={toggleModal}
+          walletName={walletName}
+        />
+      )}
     </div>
   )
 }

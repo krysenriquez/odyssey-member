@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import {upgradeMember} from '../../api'
-import {useVerificationContext} from '../Verification/VerificationProvider'
+import {useVerificationContext} from '../../stores/VerificationProvider'
 import {useAccount} from '@/providers/AccountProvider'
 import {ActivationCodeForm} from '@/components/elements/Form/ActivationCodeForm'
 
@@ -20,7 +20,7 @@ const activationCodeSchema = Yup.object().shape({
     }),
 })
 
-export const UpgradeForm = ({handleClick}) => {
+export const UpgradeForm = () => {
   const {setVerified, setPackagePlan, setActivationCode} = useVerificationContext()
   const {currentAccount} = useAccount()
 

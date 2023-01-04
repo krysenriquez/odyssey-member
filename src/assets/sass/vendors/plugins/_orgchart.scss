@@ -27,44 +27,98 @@
   }
 }
 .edit-form-header {
-  background-color: #d69a17 !important;
+  background-color: transparent !important;
 }
 .edit-form-instruments {
   min-height: 20px !important;
 }
 [data-n-id] {
   rect {
-    fill: #d69a17;
+    fill: transparent;
     &:hover {
-      filter: drop-shadow(2px 2px 2px #8e6711);
+      filter: drop-shadow(2px 2px 2px transparent);
     }
   }
   circle {
-    stroke: #d69a17;
+    stroke: transparent;
   }
+  cursor: pointer;
 }
-[data-l-id] {
+[data-n-id] {
   text {
-    font-size: 5rem !important;
-    transform: translate(0rem, -25px);
+    font-size: 1.5rem !important;
+    transform: translate(0rem, 0px);
   }
 }
+
 .node.addMember {
   rect {
-    fill: #eb1821;
+    fill: transparent;
     &:hover {
-      filter: drop-shadow(2px 2px 2px #91050c);
+      filter: drop-shadow(2px 2px 2px transparent);
     }
   }
   circle {
-    stroke: #eb1821;
+    stroke: transparent;
   }
 }
-.node.DRAFT {
-  rect {
-    fill: #fbe14f;
-  }
+.node.blankMember {
+  cursor: not-allowed;
+}
+
+.bg-platinum {
+  background-color: $package-platinum !important;
+}
+.bg-gold {
+  background-color: $package-gold !important;
+}
+.bg-silver {
+  background-color: $package-silver !important;
+}
+.bg-starter {
+  background-color: $package-starter !important;
+}
+
+.node.Platinum {
   circle {
-    stroke: #fbe14f;
+    stroke: $package-platinum;
+    stroke-width: 10px;
+  }
+}
+
+.node.Gold {
+  circle {
+    stroke: $package-gold;
+    stroke-width: 10px;
+  }
+}
+
+.node.Silver {
+  circle {
+    stroke: $package-silver;
+    stroke-width: 10px;
+  }
+}
+
+.node.Starter {
+  circle {
+    stroke: $package-starter;
+    stroke-width: 10px;
+  }
+}
+
+[data-theme='light'] {
+  [data-n-id] {
+    text {
+      color: var(--kt-text-dark);
+    }
+  }
+}
+
+[data-theme='dark'] {
+  [data-n-id] {
+    text {
+      color: var(--kt-text-dark);
+    }
   }
 }

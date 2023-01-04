@@ -42,20 +42,20 @@ const HeaderUser = () => {
 
         <div className='separator my-2'></div>
 
-        <div className='menu-item px-5'>
+        {/* <div className='menu-item px-5'>
           <Link to={'/crafted/pages/profile'} className='menu-link px-5'>
             My Profile
           </Link>
-        </div>
+        </div> */}
 
-        <div className='menu-item px-5'>
+        {/* <div className='menu-item px-5'>
           <a href='#' className='menu-link px-5'>
             <span className='menu-text'>My Orders</span>
             <span className='menu-badge'>
               <span className='badge badge-light-danger badge-circle fw-bolder fs-7'>3</span>
             </span>
           </a>
-        </div>
+        </div> */}
 
         <div className='menu-item px-5'>
           <a onClick={logout} className='menu-link px-5'>

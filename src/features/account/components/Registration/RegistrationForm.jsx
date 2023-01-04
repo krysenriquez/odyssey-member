@@ -5,7 +5,10 @@ import {Formik, Form} from 'formik'
 import {toast} from 'react-toastify'
 import {CustomSVG} from '@/components/elements/SVG/CustomSVG'
 import {useStepper} from '@/components/elements/Stepper/context'
-import {useVerificationContext} from '../Verification/VerificationProvider'
+import {useVerificationContext} from '../../stores/VerificationProvider'
+import {useRegistrationContext} from '../../stores/RegistrationProvider'
+import {useModalContext} from '@/components/elements/Modal/CustomModal'
+import {useAccount} from '@/providers/AccountProvider'
 import {createMember} from '../../api'
 import {StepPackage} from './steps/StepPackage'
 import {StepGenealogy} from './steps/StepGenealogy'
@@ -13,41 +16,19 @@ import {StepPersonal} from './steps/StepPersonal'
 import {StepUser} from './steps/StepUser'
 import {StepCompleted} from './steps/StepCompleted'
 
-export const RegistrationForm = ({handleClick}) => {
+import registrationSchema from '../../models/Registration/registrationSchema'
+import registrationFormModel from '../../models/Registration/registrationFormModel'
+import registrationInitialValues from '../../models/Registration/registrationInitialValues'
+
+export const RegistrationForm = (props) => {
+  const {formId, formField} = registrationFormModel
+  const {toggleModal} = useModalContext()
+  const {node} = useRegistrationContext()
+  const {currentAccount} = useAccount()
   const {packagePlan, activationCode} = useVerificationContext()
   const {incrementCurrentStep, decrementCurrentStep, currentStep, steps, setSteps} = useStepper()
   const [currentSchema, setCurrentSchema] = useState(undefined)
-
-  const [initialMember, setInitialMember] = useState({
-    parentAccountId: '',
-    parentAccountName: '',
-    parentSide: '',
-    activationCode: activationCode,
-    sponsorAccountId: '',
-    sponsorAccountName: '',
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    personalInfo: {
-      birthdate: new Date(),
-      gender: '',
-    },
-    contactInfo: {
-      contactNumber: '',
-    },
-    addressInfo: {
-      street: '',
-      city: '',
-      state: '',
-    },
-    avatarInfo: {},
-    user: {
-      username: '',
-      emailAddress: '',
-      password: '',
-      repeatPassword: '',
-    },
-  })
+  const [initialMember, setInitialMember] = useState(registrationInitialValues)
 
   const registrationFormSteps = [
     {
@@ -58,14 +39,18 @@ export const RegistrationForm = ({handleClick}) => {
     {
       title: 'Genealogy',
       subTitle: 'Provide  your parent and Sponsor',
-      renderComponent: () => <StepGenealogy />,
+      renderComponent: () => <StepGenealogy formField={formField} />,
     },
     {
       title: 'Personal Info',
       subTitle: 'Provide your personal info',
-      renderComponent: () => <StepPersonal />,
+      renderComponent: () => <StepPersonal formField={formField} />,
     },
-    {title: 'User', subTitle: 'Setup your user account', renderComponent: () => <StepUser />},
+    {
+      title: 'User',
+      subTitle: 'Setup your user account',
+      renderComponent: () => <StepUser formField={formField} />,
+    },
     {
       title: 'Completed',
       subTitle: 'Member Account created!',
@@ -73,52 +58,37 @@ export const RegistrationForm = ({handleClick}) => {
     },
   ]
 
-  const memberSchema = [
-    object().shape({}),
-    object().shape({
-      sponsorAccountId: string().required().label('Sponsor ID'),
-      sponsorAccountName: string().required(),
-      parentAccountId: string().required().label('Parent ID'),
-      parentSide: string().required().label('Parent Side'),
-      parentAccountName: string().required(),
-    }),
-    object().shape({
-      firstName: string().required().label('First Name'),
-      middleName: string().required().label('Middle Name'),
-      lastName: string().required().label('Last Name'),
-      personalInfo: object({
-        birthdate: date(),
-        gender: string().required().label('Gender'),
-      }),
-      contactInfo: object({
-        contactNumber: string().required().label('Contact Number'),
-      }),
-      addressInfo: object({
-        street: string().required().label('Street'),
-        city: string().required().label('City'),
-        state: string().required().label('Province'),
-      }),
-    }),
-    object().shape({
-      user: object({
-        username: string().required().label('Username'),
-        emailAddress: string().required().label('Email Address'),
-        password: string().required().label('Password'),
-        repeatPassword: string()
-          .required()
-          .label('Repeat Password')
-          .oneOf([ref('password'), null], 'Passwords must match'),
-      }),
-    }),
-  ]
-
   useEffect(() => {
     setSteps(registrationFormSteps)
   }, [setSteps])
 
   useEffect(() => {
-    setCurrentSchema(memberSchema[currentStep])
+    setCurrentSchema(registrationSchema[currentStep])
   }, [currentStep])
+
+  useEffect(() => {
+    if (activationCode) {
+      setInitialMember((prevState) => {
+        return {...prevState, activationCode: activationCode}
+      })
+    }
+  }, [activationCode])
+
+  useEffect(() => {
+    if (node) {
+      console.log(node)
+      setInitialMember((prevState) => {
+        return {
+          ...prevState,
+          parentAccountId: node.parentAccountNumber,
+          parentAccountName: node.parentName,
+          parentSide: node.parentSide,
+          sponsorAccountId: currentAccount.accountNumber,
+          sponsorAccountName: currentAccount.accountName,
+        }
+      })
+    }
+  }, [node])
 
   const prevStep = () => {
     decrementCurrentStep()
@@ -135,6 +105,7 @@ export const RegistrationForm = ({handleClick}) => {
   }
 
   const submitStep = (values, actions) => {
+    console.log(values)
     if (currentStep < steps.length - 1) {
       incrementCurrentStep()
     } else {
@@ -143,7 +114,7 @@ export const RegistrationForm = ({handleClick}) => {
         values.personalInfo.birthdate = convertDate(values.personalInfo.birthdate)
         createMember(values).then((response) => {
           toast.success(response.data.message)
-          handleClick()
+          toggleModal()
         })
       } catch (ex) {
         values.personalInfo.birthdate = new Date(values.personalInfo.birthdate)
@@ -191,23 +162,32 @@ export const RegistrationForm = ({handleClick}) => {
       </div>
       <div className='flex-row-fluid py-lg-5 px-lg-15 mb-10'>
         <Formik
+          enableReinitialize
           validateOnChange={false}
-          validateOnBlur={false}
-          validateOnMount={false}
           validationSchema={currentSchema}
           initialValues={initialMember}
           onSubmit={submitStep}
         >
-          {(actions) => (
-            <Form
-              className='form fv-plugins-bootstrap5 fv-plugins-framework'
-              id='registration_form'
-            >
+          {({handleSubmit, handleChange, handleBlur, values, errors}) => (
+            <Form className='form' id={formId}>
               {steps.map((step, index) => {
                 if (index == currentStep) return <div key={index}>{step.renderComponent()}</div>
               })}
               <div className='d-flex flex-stack pt-10'>
                 <div className='me-2'>
+                  {currentStep == 0 && (
+                    <button
+                      type='button'
+                      className='btn btn-lg btn-light-primary me-3'
+                      onClick={toggleModal}
+                    >
+                      <CustomSVG
+                        path='/public/media/icons/arrows/left-arrow.svg'
+                        className='svg-icon svg-icon-3 me-1'
+                      />
+                      Discard
+                    </button>
+                  )}
                   {currentStep > 0 && (
                     <button
                       type='button'

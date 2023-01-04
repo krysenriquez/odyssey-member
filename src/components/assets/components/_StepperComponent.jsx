@@ -50,7 +50,7 @@ class StepperComponent {
   }
 
   _goTo = (index) => {
-    EventHandlerUtil.trigger(this.element, 'kt.stepper.change')
+    EventHandlerUtil.trigger(this.element, 'stepper.change')
     // Skip if this step is already shown
     if (index === this.currentStepIndex || index > this.totatStepsNumber || index < 0) {
       return
@@ -65,20 +65,20 @@ class StepperComponent {
     // Refresh elements
     this.refreshUI()
 
-    EventHandlerUtil.trigger(this.element, 'kt.stepper.changed')
+    EventHandlerUtil.trigger(this.element, 'stepper.changed')
   }
 
   initHandlers = () => {
     this.btnNext?.addEventListener('click', (e) => {
       e.preventDefault()
 
-      EventHandlerUtil.trigger(this.element, 'kt.stepper.next', e)
+      EventHandlerUtil.trigger(this.element, 'stepper.next', e)
     })
 
     this.btnPrev?.addEventListener('click', (e) => {
       e.preventDefault()
 
-      EventHandlerUtil.trigger(this.element, 'kt.stepper.previous', e)
+      EventHandlerUtil.trigger(this.element, 'stepper.previous', e)
     })
 
     DOMEventHandlerUtil.on(this.element, '[data-stepper-action="step"]', 'click', (e) => {

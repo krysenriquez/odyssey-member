@@ -8,10 +8,10 @@ import {
   CodesListQueryProvider,
   useCodesListQueryData,
   useCodesListQueryLoading,
-} from './CodesListQueryProvider'
+} from '../../stores/CodesListQueryProvider'
 import {codesColumn} from './CodesColumn'
 
-const CodesListPage = () => {
+export const CodesListTable = () => {
   const navigate = useNavigate()
   const codes = useCodesListQueryData()
   const isLoading = useCodesListQueryLoading()
@@ -34,15 +34,3 @@ const CodesListPage = () => {
     </>
   )
 }
-
-const CodesListWrapper = () => {
-  return (
-    <>
-      <CodesListQueryProvider>
-        <CodesListPage />
-      </CodesListQueryProvider>
-    </>
-  )
-}
-
-export {CodesListWrapper}

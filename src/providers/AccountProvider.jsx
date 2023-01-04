@@ -18,7 +18,7 @@ const AccountProvider = ({children}) => {
   const {auth, logout} = useAuth()
   const [currentAccount, setCurrentAccount] = useState(undefined)
   const didRequest = useRef(false)
-  
+
   useEffect(() => {
     const requestAccount = async () => {
       try {

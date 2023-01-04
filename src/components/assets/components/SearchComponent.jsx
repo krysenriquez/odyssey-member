@@ -193,7 +193,7 @@ class SearchComponent {
       if (this.toggleElement) {
         this.toggleElement.addEventListener('click', this.show)
 
-        this.menuObject.on('kt.menu.dropdown.show', function () {
+        this.menuObject.on('menu.dropdown.show', function () {
           // @ts-ignore
           if (isVisibleElement(context.toggleElement)) {
             // @ts-ignore
@@ -203,7 +203,7 @@ class SearchComponent {
           }
         })
 
-        this.menuObject.on('kt.menu.dropdown.hide', function () {
+        this.menuObject.on('menu.dropdown.hide', function () {
           // @ts-ignore
           if (isVisibleElement(context.toggleElement)) {
             // @ts-ignore
@@ -214,7 +214,7 @@ class SearchComponent {
         })
       }
 
-      this.menuObject.on('kt.menu.dropdown.shown', function () {
+      this.menuObject.on('menu.dropdown.shown', function () {
         // @ts-ignore
         context.inputElement.focus()
       })
@@ -293,7 +293,7 @@ class SearchComponent {
       this.inputElement.focus()
 
       this.processing = true
-      EventHandlerUtil.trigger(this.element, 'kt.search.process', this)
+      EventHandlerUtil.trigger(this.element, 'search.process', this)
     }
   }
 
@@ -322,7 +322,7 @@ class SearchComponent {
 
   // Clear
   clear = () => {
-    if (EventHandlerUtil.trigger(this.element, 'kt.search.clear') === false) {
+    if (EventHandlerUtil.trigger(this.element, 'search.clear') === false) {
       return
     }
 
@@ -345,7 +345,7 @@ class SearchComponent {
       this.hide()
     }
 
-    EventHandlerUtil.trigger(this.element, 'kt.search.cleared')
+    EventHandlerUtil.trigger(this.element, 'search.cleared')
   }
 
   isProcessing = () => {

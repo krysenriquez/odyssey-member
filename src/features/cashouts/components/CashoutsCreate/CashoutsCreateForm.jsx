@@ -1,102 +1,219 @@
 import {useEffect, useMemo, useState} from 'react'
-import {string, object, boolean, number, array, ref, date} from 'yup'
 import {Formik, Form, Field, ErrorMessage} from 'formik'
-import {useWallet} from '@/features/wallets/store/WalletProvider'
+import {useWallet} from '@/features/wallets/stores/WalletProvider'
 import {toast} from 'react-toastify'
 import {requestCashout} from '../../api'
 import {useAccount} from '@/providers/AccountProvider'
-import {useCashoutsListQueryContext} from '../CashoutsList/CashoutsListQueryProvider'
+import {useCashoutsListQueryContext} from '../../stores/CashoutsListQueryProvider'
+import {useCashouts} from '../../stores/CashoutsProvider'
+import {useModalContext} from '@/components/elements/Modal/CustomModal'
+import InputField from '@/components/elements/Input/InputField'
+import SelectField from '@/components/elements/Input/SelectField'
+import TextAreaField from '@/components/elements/Input/TextAreaField'
+import {arrayObjectToSelectOptions, arrayToSelectOptions} from '@/utils/arrayToSelectOptions'
+import cashoutSchema from '../../models/cashoutSchema'
+import cashoutFormModel from '../../models/cashoutFormModel'
+import cashoutInitialValues from '../../models/cashoutInitialValues'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
-const cashoutSchema = object().shape({
-  activityAmount: number().required().label('Amount'),
-  wallet: string().required().label('Wallet'),
-  note: string().label('Note'),
-})
+const cashoutWallets = [
+  {
+    value: null,
+    label: 'Select Wallet',
+  },
+  {
+    value: 'B_WALLET',
+    label: 'Binary Wallet',
+  },
+  {
+    value: 'F_WALLET',
+    label: 'Franchise Wallet',
+  },
+]
 
-export const CashoutsCreateForm = ({handleClick}) => {
+const methods = [
+  {
+    value: null,
+    label: 'Select Method',
+  },
+  {
+    value: 'GCash',
+    label: 'GCash',
+  },
+  {
+    value: 'BDO',
+    label: 'BDO Transfer',
+  },
+  {
+    value: 'Metrobank',
+    label: 'Metrobank Transfer',
+  },
+  {
+    value: 'Other/s',
+    label: 'Other/s',
+  },
+]
+
+export const CashoutsCreateForm = () => {
+  const {toggleModal} = useModalContext()
   const {wallets} = useWallet()
   const {refetch} = useCashoutsListQueryContext()
   const {currentAccount} = useAccount()
+  const {cashout, cashoutMethods, accountCashoutMethods} = useCashouts()
+  const [initialCashout, setInitialCashout] = useState(cashoutInitialValues)
+
+  const [cashoutMethodsOptions, setCashoutMethodsOptions] = useState([])
+  const [accountCashoutMethodsOptions, setAccountCashoutMethodsOptions] = useState([])
+  const swal = withReactContent(Swal)
+
+  const {
+    formField: {
+      activityAmount,
+      wallet,
+      note,
+      cashoutMethod: {cashoutMethodId, accountName, accountNumber, method, others},
+    },
+  } = cashoutFormModel
 
   const cancel = (withRefresh) => {
     if (withRefresh) {
       refetch()
     }
-    handleClick()
+    toggleModal()
   }
 
-  const [initialCashout, setInitialCashout] = useState({
-    accountId: currentAccount.accountId,
-    activityAmount: 0,
-    wallet: '',
-    note: '',
-  })
+  useEffect(() => {
+    if (currentAccount) {
+      setInitialCashout((prevState) => {
+        return {...prevState, accountId: currentAccount.accountId}
+      })
+    }
+  }, [currentAccount])
+
+  useEffect(() => {
+    if (cashout) {
+      setInitialCashout(cashout)
+    }
+  }, [cashout])
+
+  useEffect(() => {
+    if (accountCashoutMethods) {
+      setAccountCashoutMethodsOptions(
+        arrayObjectToSelectOptions(
+          accountCashoutMethods,
+          'id',
+          'cashoutMethodName',
+          'Select Cashout Method'
+        )
+      )
+    }
+  }, [accountCashoutMethods])
+
+  useEffect(() => {
+    if (cashoutMethods) {
+      setCashoutMethodsOptions(arrayToSelectOptions(cashoutMethods, 'Select Cashout Method'))
+    }
+  }, [cashoutMethods])
+
+  const submitStep = async (values, actions) => {
+    swal
+      .fire({
+        title: 'Create Cashout?',
+        icon: 'question',
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonColor: 'btn btn-primary',
+        cancelButtonColor: 'btn btn-danger',
+        confirmButtonText: 'Create',
+      })
+      .then(async (result) => {
+        if (result.isConfirmed) {
+          actions.setSubmitting(true)
+          try {
+            const {data: response} = await requestCashout(values)
+            swal.fire('Cashout Created!', 'Cashout has been created.', 'success')
+            toast.success(response.message)
+          } catch (ex) {
+            toast.error(ex.message)
+          } finally {
+            actions.setSubmitting(true)
+            cancel(true)
+          }
+        }
+      })
+  }
 
   return (
     <Formik
+      enableReinitialize
       validateOnChange={false}
-      validateOnBlur={true}
       validationSchema={cashoutSchema}
       initialValues={initialCashout}
-      onSubmit={async (values, {setSubmitting}) => {
-        setSubmitting(true)
-        try {
-          const {data: response} = await requestCashout(values)
-          toast.success(response.message)
-        } catch (ex) {
-          toast.error(ex.message)
-        } finally {
-          setSubmitting(true)
-          cancel(true)
-        }
-      }}
+      onSubmit={submitStep}
     >
       {(actions) => (
         <Form>
-          <div className='row gx-10 mb-5'>
-            <div className='col-lg-12'>
-              <div className='mb-5'>
-                <Field
-                  type='number'
-                  className='form-control form-control-solid'
-                  placeholder='Amount'
-                  name='activityAmount'
+          <div className='scroll-y me-n7 pe-7'>
+            <div className='row g-9 mb-5'>
+              <div className='col-md-6'>
+                <SelectField
+                  name={wallet.name}
+                  label={wallet.label}
+                  data={cashoutWallets}
+                  required
                 />
-                <div className='text-danger mt-2'>
-                  <ErrorMessage name='activityAmount' />
-                </div>
               </div>
-              <div className='mb-5'>
-                <Field
-                  as='select'
-                  className='form-select form-control form-control-solid'
-                  name='wallet'
-                >
-                  <option>Select Wallet</option>
-                  <option value='B_WALLET'>Binary Wallet</option>
-                  <option value='F_WALLET'>Franchise Wallet</option>
-                </Field>
-                <div className='text-danger mt-2'>
-                  <ErrorMessage name='wallet' />
-                </div>
+              <div className='col-md-6'>
+                <InputField name={activityAmount.name} label={activityAmount.label} />
               </div>
-              <div className='mb-5'>
-                <Field
-                  className='form-control form-control-solid'
-                  rows={3}
-                  placeholder='Payment Details? Method?'
-                  name='note'
+            </div>
+            <div className='row g-9 mb-5'>
+              <div className='col-12'>
+                <TextAreaField name={note.name} label={note.label} />
+              </div>
+            </div>
+            <div className='row g-9 mb-5'>
+              <div className='col-md-12'>
+                <SelectField
+                  name={cashoutMethodId.name}
+                  label={cashoutMethodId.label}
+                  data={accountCashoutMethodsOptions}
+                  required
                 />
-                <div className='text-danger mt-2'>
-                  <ErrorMessage name='note' />
-                </div>
+              </div>
+            </div>
+            <div className='separator separator-content my-14'>
+              <span className='w-250px text-gray-500 fw-semibold fs-7'>
+                Or with New Cashout Method
+              </span>
+            </div>
+            <div className='row g-9 mb-5'>
+              <div className='col-md-6'>
+                <SelectField
+                  name={method.name}
+                  label={method.label}
+                  data={cashoutMethodsOptions}
+                  required
+                />
+              </div>
+              <div className='col-md-6'>
+                <InputField name={others.name} label={others.label} />
+              </div>
+            </div>
+            <div className='row g-9 mb-5'>
+              <div className='col-md-6'>
+                <InputField name={accountName.name} label={accountName.label} required />
+              </div>
+              <div className='col-md-6'>
+                <InputField name={accountNumber.name} label={accountNumber.label} required />
               </div>
             </div>
           </div>
           <div className='d-flex align-items-stretch justify-content-between pt-15'>
             <button
               type='reset'
-              onClick={() => handleClick()}
+              onClick={() => toggleModal()}
               className='btn btn-light me-3'
               disabled={actions.isSubmitting}
             >

@@ -152,7 +152,7 @@ class DrawerComponent {
   }
 
   _toggle = () => {
-    if (EventHandlerUtil.trigger(this.element, 'kt.drawer.toggle') === false) {
+    if (EventHandlerUtil.trigger(this.element, 'drawer.toggle') === false) {
       return
     }
 
@@ -162,11 +162,11 @@ class DrawerComponent {
       this._show()
     }
 
-    EventHandlerUtil.trigger(this.element, 'kt.drawer.toggled')
+    EventHandlerUtil.trigger(this.element, 'drawer.toggled')
   }
 
   _hide = () => {
-    if (EventHandlerUtil.trigger(this.element, 'kt.drawer.hide') === false) {
+    if (EventHandlerUtil.trigger(this.element, 'drawer.hide') === false) {
       return
     }
 
@@ -179,11 +179,11 @@ class DrawerComponent {
       this.toggleElement.classList.remove('active')
     }
 
-    EventHandlerUtil.trigger(this.element, 'kt.drawer.after.hidden')
+    EventHandlerUtil.trigger(this.element, 'drawer.after.hidden')
   }
 
   _show = () => {
-    if (EventHandlerUtil.trigger(this.element, 'kt.drawer.show') === false) {
+    if (EventHandlerUtil.trigger(this.element, 'drawer.show') === false) {
       return
     }
 
@@ -196,7 +196,7 @@ class DrawerComponent {
       this.toggleElement.classList.add('active')
     }
 
-    EventHandlerUtil.trigger(this.element, 'kt.drawer.shown')
+    EventHandlerUtil.trigger(this.element, 'drawer.shown')
   }
 
   _createOverlay = () => {

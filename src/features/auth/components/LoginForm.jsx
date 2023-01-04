@@ -7,7 +7,6 @@ import {useIntl} from 'react-intl'
 import {getUserByToken, login} from '../api'
 import {useAuth} from '@/providers/AuthProvider'
 import {toast} from 'react-toastify'
-import {RegistrationModal} from '@/features/account/components/Registration/RegistrationModal'
 
 const loginSchema = Yup.object().shape({
   username: Yup.string()
@@ -27,7 +26,6 @@ const initialValues = {
 
 export const LoginForm = () => {
   const intl = useIntl()
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const {saveAuth, setCurrentUser} = useAuth()
   const formik = useFormik({
@@ -51,10 +49,6 @@ export const LoginForm = () => {
       }
     },
   })
-
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen)
-  }
 
   return (
     <>
@@ -141,18 +135,7 @@ export const LoginForm = () => {
             )}
           </button>
         </div>
-        <div className='text-gray-500 fw-semibold fs-6 d-flex justify-content-center'>
-          Not a Member yet?
-          <button
-            type='button'
-            className='btn btn-flush btn-link btn-color-primary btn-active-color-info ms-2 fs-6'
-            onClick={toggleModal}
-          >
-            Sign Up
-          </button>
-        </div>
       </form>
-      {isModalOpen && <RegistrationModal isModalOpen={isModalOpen} toggleModal={toggleModal} />}
     </>
   )
 }

@@ -40,7 +40,7 @@ const MainLayout = () => {
               )}
             >
               <AsideDefault />
-              <div className='app-main flex-column flex-row-fluid ms-lg-8'>
+              <div className='app-main flex-column flex-row-fluid'>
                 <Content>
                   <Toolbar />
                   <Outlet />

@@ -1,19 +1,16 @@
 import {useState, useMemo} from 'react'
-import {useNavigate} from 'react-router-dom'
-import {PageTitle} from '@/providers/PageDataProvider'
 import {CustomCard} from '@/components/elements/Card'
 import {CustomTable} from '@/components/elements/Table/CustomTable'
 import {TableLoading} from '@/components/elements/Table/TableLoading'
 import {
-  CashoutsListQueryProvider,
   useCashoutsListQueryData,
   useCashoutsListQueryLoading,
-} from './CashoutsListQueryProvider'
+} from '../../stores/CashoutsListQueryProvider'
 import {cashoutsColumn} from './CashoutsColumn'
-import {CashoutsCreateModal} from '../CashoutsCreate/CashoutsCreateModal'
+import {CashoutsProvider} from '@/features/cashouts/stores/CashoutsProvider'
+import {CashoutsCreate} from '../CashoutsCreate/CashoutsCreate'
 
-const CodesListPage = () => {
-  const navigate = useNavigate()
+export const CashoutsListTable = () => {
   const cashouts = useCashoutsListQueryData()
   const isLoading = useCashoutsListQueryLoading()
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -38,20 +35,12 @@ const CodesListPage = () => {
           }}
         />
         {isLoading && <TableLoading />}
-        {isModalOpen && <CashoutsCreateModal isModalOpen={isModalOpen} toggleModal={toggleModal} />}
+        {isModalOpen && (
+          <CashoutsProvider>
+            <CashoutsCreate isModalOpen={isModalOpen} toggleModal={toggleModal} />
+          </CashoutsProvider>
+        )}
       </CustomCard>
     </>
   )
 }
-
-const CodesListWrapper = () => {
-  return (
-    <>
-      <CashoutsListQueryProvider>
-        <CodesListPage />
-      </CashoutsListQueryProvider>
-    </>
-  )
-}
-
-export {CodesListWrapper}

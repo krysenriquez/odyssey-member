@@ -115,7 +115,7 @@ class ThemeMode {
   initMode = () => {
     this.setMode(this.getMode(), this.getMenuMode())
     if (this.element) {
-      EventHandlerUtil.trigger(this.element, 'kt.thememode.init')
+      EventHandlerUtil.trigger(this.element, 'thememode.init')
     }
   }
 

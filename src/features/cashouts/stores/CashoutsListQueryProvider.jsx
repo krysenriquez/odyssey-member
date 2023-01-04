@@ -2,7 +2,7 @@ import {createContext, useContext, useState, useEffect} from 'react'
 import {useQuery} from 'react-query'
 import {initialQuery} from '@/config/const'
 import {useAccount} from '@/providers/AccountProvider'
-import {getCashouts, GET_CASHOUTS_URL} from '../../api'
+import {getCashouts, GET_CASHOUTS_URL} from '../api'
 
 const CashoutsListQueryContext = createContext(initialQuery)
 

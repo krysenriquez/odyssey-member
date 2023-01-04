@@ -26,6 +26,11 @@ export const createMember = (member) => {
   return axios.post(`${CREATE_MEMBER_URL}`, humps.decamelizeKeys(member))
 }
 
+export const verifyExtremeSide = (value) => {
+  return axios.post(`${VERIFY_SPONSOR_ACCOUNT_NUMBER_URL}`, {sponsor_account_id: value})
+}
+
+
 export const verifySponsorAccountNumber = (value) => {
   return axios.post(`${VERIFY_SPONSOR_ACCOUNT_NUMBER_URL}`, {sponsor_account_id: value})
 }

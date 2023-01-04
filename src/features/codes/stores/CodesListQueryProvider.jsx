@@ -2,7 +2,7 @@ import {createContext, useContext, useState, useEffect} from 'react'
 import {useQuery} from 'react-query'
 import {initialQuery} from '@/config/const'
 import {useAccount} from '@/providers/AccountProvider'
-import {getAccountCodes, GET_ACCOUNT_CODES} from '../../api'
+import {getAccountCodes, GET_ACCOUNT_CODES} from '../api'
 
 const CodesListQueryContext = createContext(initialQuery)
 

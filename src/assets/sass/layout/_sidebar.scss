@@ -13,6 +13,14 @@
       top: #{$app-header-sticky-height + $app-sidebar-gap} !important;
       transition: top $app-general-transition-duration $app-general-transition-timing;
     }
+
+    [data-app-sidebar-fixed='true'] & {
+      position: fixed;
+      z-index: 105;
+      top: 0;
+      bottom: 0;
+      left: 0;
+    }
   }
 
   .app-sidebar-wrapper {

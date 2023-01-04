@@ -9,7 +9,7 @@ const CORE_URL = `${API_URL}/core`
 export const GET_ACTIVITY_SUMMARY_INFO = `${CORE_URL}/getactivitysummaryinfo/`
 export const GET_ACTIVITY_SUMMARY_TOTAL_AMOUNT = `${CORE_URL}/getactivitytotalamount/`
 
-export const getActivitySummaryInfo = (accountId) => {
+export const getActivitySummaryCount = (accountId) => {
   return axios
     .post(`${GET_ACTIVITY_SUMMARY_INFO}`, {account_id: accountId})
     .then((d) => humps.camelizeKeys(d.data))

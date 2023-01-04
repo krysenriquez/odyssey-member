@@ -31,7 +31,6 @@ function getElementActualCss(el, prop, cache) {
 
   if (!el.getAttribute('kt-hidden-' + prop) || cache === false) {
     let value
-
     // the element is hidden so:
     // making the el block so we can meassure its height but still be hidden
     css = el.style.cssText

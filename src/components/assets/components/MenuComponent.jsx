@@ -341,7 +341,7 @@ class MenuComponent {
 
   // Show item dropdown
   _showDropdown = (item) => {
-    if (EventHandlerUtil.trigger(this.element, 'kt.menu.dropdown.show') === false) {
+    if (EventHandlerUtil.trigger(this.element, 'menu.dropdown.show') === false) {
       return
     }
 
@@ -392,7 +392,7 @@ class MenuComponent {
       }
     }
 
-    EventHandlerUtil.trigger(this.element, 'kt.menu.dropdown.shown')
+    EventHandlerUtil.trigger(this.element, 'menu.dropdown.shown')
   }
 
   // Init dropdown popper(new)
@@ -419,7 +419,7 @@ class MenuComponent {
 
   // Hide item dropdown
   _hideDropdown = (item) => {
-    if (EventHandlerUtil.trigger(this.element, 'kt.menu.dropdown.hide') === false) {
+    if (EventHandlerUtil.trigger(this.element, 'menu.dropdown.hide') === false) {
       return
     }
 
@@ -461,7 +461,7 @@ class MenuComponent {
 
     // Destroy popper(new)
     this.destroyDropdownPopper(item)
-    EventHandlerUtil.trigger(this.element, 'kt.menu.dropdown.hidden')
+    EventHandlerUtil.trigger(this.element, 'menu.dropdown.hidden')
   }
 
   // Destroy dropdown popper(new)
@@ -472,11 +472,11 @@ class MenuComponent {
       DataUtil.remove(item, 'popper')
     }
 
-    EventHandlerUtil.trigger(this.element, 'kt.menu.dropdown.hidden')
+    EventHandlerUtil.trigger(this.element, 'menu.dropdown.hidden')
   }
 
   _showAccordion = (item) => {
-    if (EventHandlerUtil.trigger(this.element, 'kt.menu.accordion.show') === false) {
+    if (EventHandlerUtil.trigger(this.element, 'menu.accordion.show') === false) {
       return
     }
 
@@ -498,13 +498,13 @@ class MenuComponent {
         item.classList.remove('showing')
         item.classList.add('show')
         sub.classList.add('show')
-        EventHandlerUtil.trigger(this.element, 'kt.menu.accordion.shown')
+        EventHandlerUtil.trigger(this.element, 'menu.accordion.shown')
       })
     }
   }
 
   _hideAccordion = (item) => {
-    if (EventHandlerUtil.trigger(this.element, 'kt.menu.accordion.hide') === false) {
+    if (EventHandlerUtil.trigger(this.element, 'menu.accordion.hide') === false) {
       return
     }
 
@@ -517,7 +517,7 @@ class MenuComponent {
         item.classList.remove('show')
         sub.classList.remove('show')
         item.classList.remove('hover') // update
-        EventHandlerUtil.trigger(this.element, 'kt.menu.accordion.hidden')
+        EventHandlerUtil.trigger(this.element, 'menu.accordion.hidden')
       })
     }
   }
@@ -692,13 +692,13 @@ class MenuComponent {
 
   // Link handler
   _link = (element, e) => {
-    if (EventHandlerUtil.trigger(this.element, 'kt.menu.link.click') === false) {
+    if (EventHandlerUtil.trigger(this.element, 'menu.link.click') === false) {
       return
     }
 
     // Dismiss all shown dropdowns
     MenuComponent.hideDropdowns(undefined)
-    EventHandlerUtil.trigger(this.element, 'kt.menu.link.clicked')
+    EventHandlerUtil.trigger(this.element, 'menu.link.clicked')
   }
 
   _click = (element, e) => {

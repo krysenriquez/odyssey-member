@@ -1,11 +1,11 @@
 import {useAccount} from '@/providers/AccountProvider'
 import {createContext, useContext, useEffect, useRef, useState} from 'react'
 import {toast} from 'react-toastify'
-import {getActivitySummaryTotal} from '../api'
+import {getActivitySummaryTotal, getActivitySummaryCount} from '../api'
 
 const ActivityContext = createContext({
-  activitySummary: undefined,
-  setActivitySummary: (any) => {},
+  activitySummaryTotal: undefined,
+  activitySummaryCount: undefined,
 })
 
 const useActivity = () => {
@@ -14,37 +14,57 @@ const useActivity = () => {
 
 const ActivityProvider = ({children}) => {
   const {currentAccount} = useAccount()
-  const didRequest = useRef(false)
-  const [activitySummary, setActivitySummary] = useState(undefined)
+  const didRequestSummaryTotal = useRef(false)
+  const didRequestSummaryCount = useRef(false)
+  const [activitySummaryTotal, setActivitySummaryTotal] = useState(undefined)
+  const [activitySummaryCount, setActivitySummaryCount] = useState(undefined)
 
   useEffect(() => {
     const getActivitySummaryWithTotal = async () => {
       try {
-        if (!didRequest.current) {
+        if (!didRequestSummaryTotal.current) {
           const data = await getActivitySummaryTotal(currentAccount.accountId)
           if (data.length > 0) {
-            setActivitySummary(data)
+            setActivitySummaryTotal(data)
           }
         }
       } catch (error) {
-        if (!didRequest.current) {
+        if (!didRequestSummaryTotal.current) {
           toast.error('Unable to fetch Activity Information')
         }
       }
 
-      return () => (didRequest.current = true)
+      return () => (didRequestSummaryTotal.current = true)
+    }
+
+    const getActivitySummaryWithCount = async () => {
+      try {
+        if (!didRequestSummaryCount.current) {
+          const data = await getActivitySummaryCount(currentAccount.accountId)
+          if (data.length > 0) {
+            setActivitySummaryCount(data)
+          }
+        }
+      } catch (error) {
+        if (!didRequestSummaryCount.current) {
+          toast.error('Unable to fetch Activity Information')
+        }
+      }
+
+      return () => (didRequestSummaryCount.current = true)
     }
 
     if (currentAccount) {
       getActivitySummaryWithTotal()
+      getActivitySummaryWithCount()
     }
   }, [currentAccount])
 
   return (
     <ActivityContext.Provider
       value={{
-        activitySummary,
-        setActivitySummary,
+        activitySummaryTotal,
+        activitySummaryCount,
       }}
     >
       {children}

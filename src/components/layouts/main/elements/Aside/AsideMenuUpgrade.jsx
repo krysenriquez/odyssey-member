@@ -1,18 +1,20 @@
 import {CustomSVG} from '@/components/elements/SVG/CustomSVG'
 import {useState} from 'react'
-import {Modal} from 'react-bootstrap'
+import {CustomModal} from '@/components/elements/Modal/CustomModal'
 import {UpgradeForm} from '@/features/account/components/Upgrade/UpgradeForm'
 
-const RegistrationModal = ({isModalOpen, toggleModal}) => {
+const UpgradeModal = (prop) => {
+  const {isModalOpen, toggleModal} = prop
+  const value = {
+    isModalOpen: isModalOpen,
+    toggleModal: toggleModal,
+    dialogClassName: 'mw-900px',
+    title: 'Upgrade',
+  }
   return (
-    <Modal show={isModalOpen} onHide={toggleModal} centered dialogClassName='mw-900px'>
-      <Modal.Header closeButton>
-        <Modal.Title>Upgrade</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <UpgradeForm handleClick={toggleModal} />
-      </Modal.Body>
-    </Modal>
+    <CustomModal {...value}>
+      <UpgradeForm />
+    </CustomModal>
   )
 }
 
@@ -39,7 +41,7 @@ const AsideMenuUpgrade = () => {
           Upgrade Account
         </button>
       </div>
-      {isModalOpen && <RegistrationModal isModalOpen={isModalOpen} toggleModal={toggleModal} />}
+      {isModalOpen && <UpgradeModal isModalOpen={isModalOpen} toggleModal={toggleModal} />}
     </>
   )
 }

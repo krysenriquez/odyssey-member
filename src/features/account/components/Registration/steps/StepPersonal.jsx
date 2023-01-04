@@ -1,142 +1,73 @@
+import clsx from 'clsx'
 import {useEffect, useState} from 'react'
 import DatePicker from 'react-datepicker'
 import {Field, ErrorMessage, useFormikContext} from 'formik'
 import {verifyAccountName} from '../../../api'
-import {FormDatePicker} from '@/components/elements/Input/DatePicker'
+import InputField from '@/components/elements/Input/InputField'
+import DatePickerField from '@/components/elements/Input/DatePickerField'
+import SelectField from '@/components/elements/Input/SelectField'
 
-export const StepPersonal = () => {
-  const formikProps = useFormikContext()
-  const {getFieldProps, setErrors, isValidating} = formikProps
+const genders = [
+  {
+    value: null,
+    label: 'Select Gender',
+  },
+  {
+    value: 'MALE',
+    label: 'Male',
+  },
+  {
+    value: 'FEMALE',
+    label: 'Female',
+  },
+]
 
-  const validateAccountName = async () => {
-    const firstName = getFieldProps('firstName').value
-    const middleName = getFieldProps('middleName').value
-    const lastName = getFieldProps('lastName').value
-    const error = {}
-
-    await verifyAccountName(firstName, middleName, lastName)
-      .then((response) => {})
-      .catch((err) => {
-        error.firstName = err.response.data.message
-        error.middleName = err.response.data.message
-        error.lastName = err.response.data.message
-      })
-
-    return error
-  }
-
-  useEffect(() => {
-    if (isValidating == true) {
-      validateAccountName().then((res) => {
-        setErrors(res)
-      })
-    }
-  }, [isValidating])
-
+export const StepPersonal = (props) => {
+  const {
+    formField: {
+      firstName,
+      middleName,
+      lastName,
+      personalInfo: {birthdate, gender},
+      contactInfo: {contactNumber},
+      addressInfo: {street, city, state},
+    },
+  } = props
   return (
     <div className='w-100'>
-      <div className='mb-5 row fv-plugins-icon-container'>
+      <div className='mb-5 row'>
         <div className='col-4'>
-          <label className='form-label mb-3'>
-            <span className='required'>First Name</span>
-          </label>
-          <Field type='text' className='form-control form-control-solid' name='firstName' />
-          <div className='text-danger mt-2'>
-            <ErrorMessage name='firstName' />
-          </div>
+          <InputField name={firstName.name} label={firstName.label} required />
         </div>
         <div className='col-4'>
-          <label className='form-label mb-3'>
-            <span className='required'>Middle Name</span>
-          </label>
-          <Field type='text' className='form-control form-control-solid' name='middleName' />
-          <div className='text-danger mt-2'>
-            <ErrorMessage name='middleName' />
-          </div>
+          <InputField name={middleName.name} label={middleName.label} required />
         </div>
         <div className='col-4'>
-          <label className='form-label mb-3'>
-            <span className='required'>Last Name</span>
-          </label>
-          <Field type='text' className='form-control form-control-solid' name='lastName' />
-          <div className='text-danger mt-2'>
-            <ErrorMessage name='lastName' />
-          </div>
+          <InputField name={lastName.name} label={lastName.label} required />
         </div>
       </div>
-      <div className='mb-5 row fv-plugins-icon-container'>
+      <div className='mb-5 row'>
         <div className='col-6'>
-          <label className='form-label mb-3'>
-            <span className='required'>Birthdate</span>
-          </label>
-          <FormDatePicker
-            name='personalInfo.birthdate'
-            className='form-control form-control-solid'
-          />
-          <div className='text-danger mt-2'>
-            <ErrorMessage name='personalInfo.birthdate' />
-          </div>
+          <DatePickerField name={birthdate.name} label={birthdate.label} required />
         </div>
         <div className='col-6'>
-          <label className='form-label mb-3'>
-            <span className='required'>Gender</span>
-          </label>
-          <Field as='select' className='form-control form-control-solid' name='personalInfo.gender'>
-            <option>Select Gender</option>
-            <option value='MALE'>Male</option>
-            <option value='FEMALE'>Female</option>
-          </Field>
-          <div className='text-danger mt-2'>
-            <ErrorMessage name='personalInfo.gender' />
-          </div>
+          <SelectField name={gender.name} label={gender.label} data={genders} required />
         </div>
       </div>
-      <div className='mb-5 row fv-plugins-icon-container'>
+      <div className='mb-5 row'>
         <div className='col-12'>
-          <label className='form-label mb-3'>
-            <span className='required'>Contact Number</span>
-          </label>
-          <Field
-            type='text'
-            className='form-control form-control-solid'
-            name='contactInfo.contactNumber'
-          />
-          <div className='text-danger mt-2'>
-            <ErrorMessage name='contactInfo.contactNumber' />
-          </div>
+          <InputField name={contactNumber.name} label={contactNumber.label} required />
         </div>
       </div>
-      <div className='mb-5 row fv-plugins-icon-container'>
+      <div className='mb-5 row'>
         <div className='col-4'>
-          <label className='form-label mb-3'>
-            <span className='required'>Street</span>
-          </label>
-          <Field
-            type='text'
-            className='form-control form-control-solid'
-            name='addressInfo.street'
-          />
-          <div className='text-danger mt-2'>
-            <ErrorMessage name='addressInfo.street' />
-          </div>
+          <InputField name={street.name} label={street.label} required />
         </div>
         <div className='col-4'>
-          <label className='form-label mb-3'>
-            <span className='required'>City</span>
-          </label>
-          <Field type='text' className='form-control form-control-solid' name='addressInfo.city' />
-          <div className='text-danger mt-2'>
-            <ErrorMessage name='addressInfo.city' />
-          </div>
+          <InputField name={city.name} label={city.label} required />
         </div>
         <div className='col-4'>
-          <label className='form-label mb-3'>
-            <span className='required'>Province</span>
-          </label>
-          <Field type='text' className='form-control form-control-solid' name='addressInfo.state' />
-          <div className='text-danger mt-2'>
-            <ErrorMessage name='addressInfo.state' />
-          </div>
+          <InputField name={state.name} label={state.label} required />
         </div>
       </div>
     </div>

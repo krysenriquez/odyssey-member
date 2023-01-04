@@ -56,7 +56,7 @@ class ImageInputComponent {
 
     if (this.inputElement !== null && this.inputElement.files && this.inputElement.files[0]) {
       // Fire change event
-      if (EventHandlerUtil.trigger(this.element, 'kt.imageinput.change', e) === false) {
+      if (EventHandlerUtil.trigger(this.element, 'imageinput.change', e) === false) {
         return
       }
 
@@ -73,7 +73,7 @@ class ImageInputComponent {
       this.element.classList.remove('image-input-empty')
 
       // Fire removed event
-      EventHandlerUtil.trigger(this.element, 'kt.imageinput.changed', e)
+      EventHandlerUtil.trigger(this.element, 'imageinput.changed', e)
     }
   }
 
@@ -81,7 +81,7 @@ class ImageInputComponent {
     e.preventDefault()
 
     // Fire cancel event
-    if (EventHandlerUtil.trigger(this.element, 'kt.imageinput.cancel', e) === false) {
+    if (EventHandlerUtil.trigger(this.element, 'imageinput.cancel', e) === false) {
       return
     }
 
@@ -97,14 +97,14 @@ class ImageInputComponent {
     }
 
     // Fire canceled event
-    EventHandlerUtil.trigger(this.element, 'kt.imageinput.canceled', e)
+    EventHandlerUtil.trigger(this.element, 'imageinput.canceled', e)
   }
 
   _remove = (e) => {
     e.preventDefault()
 
     // Fire remove event
-    if (EventHandlerUtil.trigger(this.element, 'kt.imageinput.remove', e) === false) {
+    if (EventHandlerUtil.trigger(this.element, 'imageinput.remove', e) === false) {
       return
     }
 
@@ -123,7 +123,7 @@ class ImageInputComponent {
     }
 
     // Fire removed event
-    EventHandlerUtil.trigger(this.element, 'kt.imageinput.removed', e)
+    EventHandlerUtil.trigger(this.element, 'imageinput.removed', e)
   }
 
   ///////////////////////

@@ -15,6 +15,7 @@ import {
 const defaultStickyOptions = {
   offset: 200,
   reverse: false,
+  release: null,
   animation: true,
   animationSpeed: '0.3s',
   animationClass: 'animation-slide-in-down',
@@ -29,9 +30,9 @@ class StickyComponent {
     this.instanceUid = getUniqueIdWithPrefix('sticky')
     this.instanceName = this.element.getAttribute('data-sticky-name')
     this.attributeName = 'data-sticky-' + this.instanceName
+    this.attributeName2 = 'data-' + this.instanceName
     this.eventTriggerState = true
     this.lastScrollTop = 0
-
     // Event Handlers
     window.addEventListener('scroll', this.scroll)
 
@@ -44,6 +45,7 @@ class StickyComponent {
   scroll = () => {
     let offset = this.getOption('offset')
     let reverse = this.getOption('reverse')
+    let release = this.getOption('release')
 
     // Exit if false
     if (offset === false) {
@@ -56,6 +58,7 @@ class StickyComponent {
     }
 
     const st = getScrollTop()
+    const proceed = !release || release.offsetTop - release.clientHeight > st
     // Reverse scroll mode
     if (reverse === true) {
       // Release on reverse scroll mode
@@ -63,6 +66,7 @@ class StickyComponent {
         if (document.body.hasAttribute(this.attributeName) === false) {
           this.enable()
           document.body.setAttribute(this.attributeName, 'on')
+          document.body.setAttribute(this.attributeName2, 'on')
         }
 
         if (this.eventTriggerState === true) {
@@ -76,6 +80,7 @@ class StickyComponent {
         if (document.body.hasAttribute(this.attributeName)) {
           this.disable()
           document.body.removeAttribute(this.attributeName)
+          document.body.removeAttribute(this.attributeName2)
         }
 
         if (this.eventTriggerState === false) {
@@ -91,10 +96,11 @@ class StickyComponent {
     }
 
     // Classic scroll mode this is where the error happens
-    if (st > offsetNum) {
+    if (st > offsetNum && proceed) {
       if (document.body.hasAttribute(this.attributeName) === false) {
         this.enable()
         document.body.setAttribute(this.attributeName, 'on')
+        document.body.setAttribute(this.attributeName2, 'on')
       }
 
       if (this.eventTriggerState === true) {
@@ -107,12 +113,21 @@ class StickyComponent {
       if (document.body.hasAttribute(this.attributeName) === true) {
         this.disable()
         document.body.removeAttribute(this.attributeName)
+        document.body.removeAttribute(this.attributeName2)
       }
 
       if (this.eventTriggerState === false) {
         EventHandlerUtil.trigger(this.element, 'sticky.off')
         EventHandlerUtil.trigger(this.element, 'sticky.change')
         this.eventTriggerState = true
+      }
+    }
+
+    if (release) {
+      if (release.offsetTop - release.clientHeight > st) {
+        this.element.setAttribute('data-kt-sticky-released', 'on')
+      } else {
+        this.element.removeAttribute('data-kt-sticky-released')
       }
     }
   }

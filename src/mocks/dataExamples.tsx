@@ -75,7 +75,7 @@ const defaultUserInfos = [
   {
     name: 'Max Smith',
     avatar: 'avatars/300-1.jpg',
-    email: 'max@kt.com',
+    email: 'max@com',
     position: 'Software Enginer',
     online: false,
   },

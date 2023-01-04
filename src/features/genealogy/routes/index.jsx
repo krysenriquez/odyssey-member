@@ -1,7 +1,7 @@
 import {Route, Routes, Outlet} from 'react-router-dom'
 import {useIntl} from 'react-intl'
 import {PageTitle} from '@/providers/PageDataProvider'
-import {GenealogyWrapper} from '../components/Genealogy'
+import {Genealogy} from './Genealogy'
 
 const GenealogyRoutes = () => {
   const intl = useIntl()
@@ -30,7 +30,7 @@ const GenealogyRoutes = () => {
             <PageTitle breadcrumbs={genealogyBreadCrumbs} description=''>
               {intl.formatMessage({id: 'GENEALOGY'})}
             </PageTitle>
-            <GenealogyWrapper />
+            <Genealogy />
           </>
         }
       />

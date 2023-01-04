@@ -8,7 +8,7 @@ import {AsideMenuUpgrade} from './AsideMenuUpgrade'
 import {AsideMenuProgress} from './AsideMenuProgress'
 import {AsideMenuStats} from './AsideMenuStats'
 import {AsideMenu} from './AsideMenu'
-import {WalletProvider} from '@/features/wallets/store/WalletProvider'
+import {WalletProvider} from '@/features/wallets/stores/WalletProvider'
 
 const AsideDefault = () => {
   const {classes} = useLayout()

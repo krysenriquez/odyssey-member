@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import {useIntl} from 'react-intl'
-import {useWallet} from '@/features/wallets/store/WalletProvider'
+import {useWallet} from '@/features/wallets/stores/WalletProvider'
 import {toPointValue} from '@/utils/toCurrency'
 
 const AsideMenuStats = () => {
