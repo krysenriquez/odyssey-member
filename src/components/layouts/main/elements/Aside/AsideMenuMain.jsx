@@ -5,7 +5,6 @@ import {AsideMenuItem} from './AsideMenuItem'
 
 export function AsideMenuMain() {
   const intl = useIntl()
-
   return (
     <>
       <div className='col-6'>

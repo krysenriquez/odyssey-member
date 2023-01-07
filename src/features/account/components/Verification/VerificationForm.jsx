@@ -26,7 +26,7 @@ export const VerificationForm = () => {
 
   const swal = withReactContent(Swal)
   const [initialActivationCode, setInitialActivationCode] = useState({
-    activationCode: 'NL074O156NOIY2U',
+    activationCode: '',
   })
 
   return (

@@ -1,8 +1,11 @@
-import {string, object, boolean, number, array, ref, date, ValidationError} from 'yup'
+import {string, object, number} from 'yup'
 import cashoutFormModel from './cashoutFormModel'
+
 const {
   formField: {
     activityAmount,
+    activityAdminFee,
+    activityTotalAmount,
     wallet,
     note,
     cashoutMethod: {cashoutMethodId, accountName, accountNumber, method, others},
@@ -29,7 +32,7 @@ const validateWalletMaxCashout = async (ctx) => {
     wallet: ctx.parent.wallet,
     amount: ctx.parent.activityAmount,
   })
-    .then((response) => {
+    .then(async (response) => {
       return true
     })
     .catch((err) => {
@@ -40,6 +43,22 @@ const validateWalletMaxCashout = async (ctx) => {
 export default object().shape({
   [activityAmount.key]: number()
     .integer(`${activityAmount.invalidErrorMsg}`)
+    .required(`${activityAmount.requiredErrorMsg}`)
+    .test({
+      name: 'is-valid-activity-amount',
+      test: (value, ctx) => validateWalletMaxCashout(ctx),
+      exclusive: true,
+    }),
+  [activityAdminFee.key]: number()
+    .integer(`${activityAdminFee.invalidErrorMsg}`)
+    .required(`${activityAmount.requiredErrorMsg}`)
+    .test({
+      name: 'is-valid-activity-amount',
+      test: (value, ctx) => validateWalletMaxCashout(ctx),
+      exclusive: true,
+    }),
+  [activityTotalAmount.key]: number()
+    .integer(`${activityTotalAmount.invalidErrorMsg}`)
     .required(`${activityAmount.requiredErrorMsg}`)
     .test({
       name: 'is-valid-activity-amount',

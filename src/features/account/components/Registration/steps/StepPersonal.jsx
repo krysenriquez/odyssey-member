@@ -61,7 +61,7 @@ export const StepPersonal = (props) => {
       </div>
       <div className='mb-5 row'>
         <div className='col-4'>
-          <InputField name={street.name} label={street.label} required />
+          <InputField name={street.name} label={street.label} />
         </div>
         <div className='col-4'>
           <InputField name={city.name} label={city.label} required />

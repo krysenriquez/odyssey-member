@@ -35,14 +35,12 @@ const verifyName = async (ctx) => {
     if (firstName.trim() !== '' && middleName.trim() !== '' && lastName.trim() !== '') {
       return await verifyAccountName(firstName, middleName, lastName)
         .then((response) => {
-          console.log(response)
           return true
         })
         .catch((err) => {
           const errors = ['firstName', 'middleName', 'lastName'].map((key) => {
             return new ValidationError(err.response.data.message, key, key)
           })
-          console.log(errors)
           return ctx.createError({message: () => errors})
         })
     }
@@ -53,12 +51,10 @@ const verifyName = async (ctx) => {
 const validateSponsorAccountNumber = async (ctx) => {
   return await verifySponsorAccountNumber(ctx.parent.sponsorAccountId)
     .then((response) => {
-      console.log(ctx)
       ctx.parent.sponsorAccountName = response.data.account
       return true
     })
     .catch((err) => {
-      console.log(ctx)
       ctx.parent.sponsorAccountName = ''
       return ctx.createError({path: 'sponsorAccountId', message: err.response.data.message})
     })
@@ -92,7 +88,6 @@ const validateUsername = async (ctx) => {
       return true
     })
     .catch((err) => {
-      console.log(ctx)
       return ctx.createError({path: 'user.username', message: err.response.data.message})
     })
 }
@@ -153,7 +148,7 @@ export default [
       [contactNumber.key]: string().required(`${contactNumber.requiredErrorMsg}`),
     }),
     addressInfo: object({
-      [street.key]: string().required(`${street.requiredErrorMsg}`),
+      [street.key]: string(),
       [city.key]: string().required(`${city.requiredErrorMsg}`),
       [state.key]: string().required(`${state.requiredErrorMsg}`),
     }),
@@ -163,6 +158,8 @@ export default [
       [username.key]: string()
         .trim()
         .required(`${username.requiredErrorMsg}`)
+        .min(5)
+        .max(20)
         .test({
           name: 'is-valid-username',
           test: (value, ctx) => validateUsername(ctx),

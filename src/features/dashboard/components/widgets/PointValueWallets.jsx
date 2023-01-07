@@ -1,7 +1,8 @@
 import {useState} from 'react'
 import {useIntl} from 'react-intl'
+import {CustomSVG} from '@/components/elements/SVG/CustomSVG'
 import {toCurrency, toPointValue} from '@/utils/toCurrency'
-import {useActivity} from '@/features/activities/store/ActivityProvider'
+import {useActivity} from '@/features/activities/stores/ActivityProvider'
 import {useWallet} from '@/features/wallets/stores/WalletProvider'
 import {useEffect} from 'react'
 
@@ -48,25 +49,10 @@ export const PointValueWallets = () => {
                       <div className='bg-gray-100 bg-opacity-70 rounded-2 px-6 py-5'>
                         <div className='symbol symbol-30px me-5 mb-8'>
                           <span className='symbol-label'>
-                            <span className='svg-icon svg-icon-1 svg-icon-primary'>
-                              <svg
-                                width={24}
-                                height={24}
-                                viewBox='0 0 24 24'
-                                fill='none'
-                                xmlns='http://www.w3.org/2000/svg'
-                              >
-                                <path
-                                  opacity='0.3'
-                                  d='M17.9061 13H11.2061C11.2061 12.4 10.8061 12 10.2061 12C9.60605 12 9.20605 12.4 9.20605 13H6.50606L9.20605 8.40002V4C8.60605 4 8.20605 3.6 8.20605 3C8.20605 2.4 8.60605 2 9.20605 2H15.2061C15.8061 2 16.2061 2.4 16.2061 3C16.2061 3.6 15.8061 4 15.2061 4V8.40002L17.9061 13ZM13.2061 9C12.6061 9 12.2061 9.4 12.2061 10C12.2061 10.6 12.6061 11 13.2061 11C13.8061 11 14.2061 10.6 14.2061 10C14.2061 9.4 13.8061 9 13.2061 9Z'
-                                  fill='currentColor'
-                                />
-                                <path
-                                  d='M18.9061 22H5.40605C3.60605 22 2.40606 20 3.30606 18.4L6.40605 13H9.10605C9.10605 13.6 9.50605 14 10.106 14C10.706 14 11.106 13.6 11.106 13H17.8061L20.9061 18.4C21.9061 20 20.8061 22 18.9061 22ZM14.2061 15C13.1061 15 12.2061 15.9 12.2061 17C12.2061 18.1 13.1061 19 14.2061 19C15.3061 19 16.2061 18.1 16.2061 17C16.2061 15.9 15.3061 15 14.2061 15Z'
-                                  fill='currentColor'
-                                />
-                              </svg>
-                            </span>
+                            <CustomSVG
+                              path='/public/media/icons/general/box.svg'
+                              className='svg-icon svg-icon-1 svg-icon-primary'
+                            />
                           </span>
                         </div>
                         <div className='d-flex flex-wrap flex-column align-items-start gap-10'>

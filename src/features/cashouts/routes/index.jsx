@@ -2,6 +2,7 @@ import {Route, Routes, Outlet} from 'react-router-dom'
 import {useIntl} from 'react-intl'
 import {PageTitle} from '@/providers/PageDataProvider'
 import {CashoutsList} from './CashoutsList'
+import {CashoutInfo} from './CashoutInfo'
 
 const CodesRoutes = () => {
   const intl = useIntl()
@@ -9,7 +10,7 @@ const CodesRoutes = () => {
   const codesBreadCrumbs = [
     {
       title: intl.formatMessage({id: 'CASHOUTS'}),
-      path: '/codes',
+      path: '/cashouts',
       isSeparator: false,
       isActive: false,
     },
@@ -31,6 +32,17 @@ const CodesRoutes = () => {
               {intl.formatMessage({id: 'CASHOUTS'})}
             </PageTitle>
             <CashoutsList />
+          </>
+        }
+      />
+      <Route
+        path=':activityNumber'
+        element={
+          <>
+            <PageTitle breadcrumbs={codesBreadCrumbs} description=''>
+              {intl.formatMessage({id: 'CASHOUTS.INFO'})}
+            </PageTitle>
+            <CashoutInfo />
           </>
         }
       />

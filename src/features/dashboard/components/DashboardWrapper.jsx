@@ -1,10 +1,11 @@
-import {ActivityProvider} from '@/features/activities/store/ActivityProvider'
+import {ActivityProvider} from '@/features/activities/stores/ActivityProvider'
 import {WalletProvider} from '@/features/wallets/stores/WalletProvider'
 import {ActivitySummaryTotal} from './widgets/ActivitySummaryTotal'
 import {ActivitySummaryCount} from './widgets/ActivitySummaryCount'
 import {PointValueWallets} from './widgets/PointValueWallets'
 import {PrimaryWallets} from './widgets/PrimaryWallets'
 import {Cashout} from './widgets/Cashout'
+
 const DashboardPage = () => {
   return (
     <>

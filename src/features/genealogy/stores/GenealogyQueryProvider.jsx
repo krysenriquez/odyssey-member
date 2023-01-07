@@ -23,7 +23,7 @@ const GenealogyQueryProvider = ({children}) => {
     refetch()
   }, [accountId])
 
-  const {
+  const { 
     isFetching,
     refetch,
     data: response,

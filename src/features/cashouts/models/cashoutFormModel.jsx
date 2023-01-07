@@ -12,6 +12,20 @@ export default {
       requiredErrorMsg: 'Amount is required',
       invalidErrorMsg: 'Invalid Amount format',
     },
+    activityAdminFee: {
+      key: 'activityAdminFee',
+      name: 'activityAdminFee',
+      label: 'Admin Fee',
+      requiredErrorMsg: 'Admin Fee is required',
+      invalidErrorMsg: 'Invalid Amount format',
+    },
+    activityTotalAmount: {
+      key: 'activityTotalAmount',
+      name: 'activityTotalAmount',
+      label: 'Total Amount',
+      requiredErrorMsg: 'Total Amount is required',
+      invalidErrorMsg: 'Invalid Amount format',
+    },
     wallet: {
       key: 'wallet',
       name: 'wallet',

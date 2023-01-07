@@ -1,6 +1,6 @@
 import {useState, useMemo} from 'react'
 import {CustomCard} from '@/components/elements/Card'
-import {CustomTable} from '@/components/elements/Table/CustomTable'
+import {CustomTable2} from '@/components/elements/Table/CustomTable2'
 import {TableLoading} from '@/components/elements/Table/TableLoading'
 import {
   useCashoutsListQueryData,
@@ -8,7 +8,7 @@ import {
 } from '../../stores/CashoutsListQueryProvider'
 import {cashoutsColumn} from './CashoutsColumn'
 import {CashoutsProvider} from '@/features/cashouts/stores/CashoutsProvider'
-import {CashoutsCreate} from '../CashoutsCreate/CashoutsCreate'
+import {CashoutsCreateModal} from '../CashoutsCreate/CashoutsCreateModal'
 
 export const CashoutsListTable = () => {
   const cashouts = useCashoutsListQueryData()
@@ -25,7 +25,7 @@ export const CashoutsListTable = () => {
   return (
     <>
       <CustomCard>
-        <CustomTable
+        <CustomTable2
           {...{
             data: tableData,
             columns: tableColumns,
@@ -37,7 +37,7 @@ export const CashoutsListTable = () => {
         {isLoading && <TableLoading />}
         {isModalOpen && (
           <CashoutsProvider>
-            <CashoutsCreate isModalOpen={isModalOpen} toggleModal={toggleModal} />
+            <CashoutsCreateModal isModalOpen={isModalOpen} toggleModal={toggleModal} />
           </CashoutsProvider>
         )}
       </CustomCard>

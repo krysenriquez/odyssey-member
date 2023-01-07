@@ -8,6 +8,7 @@ import {AsideMenuUpgrade} from './AsideMenuUpgrade'
 import {AsideMenuProgress} from './AsideMenuProgress'
 import {AsideMenuStats} from './AsideMenuStats'
 import {AsideMenu} from './AsideMenu'
+import {AsideMenuFranchise} from './AsideMenuFranchise'
 import {WalletProvider} from '@/features/wallets/stores/WalletProvider'
 
 const AsideDefault = () => {
@@ -44,6 +45,7 @@ const AsideDefault = () => {
             </WalletProvider>
             <AsideMenuProgress />
             <AsideMenu />
+            <AsideMenuFranchise />
           </div>
         </div>
       </div>

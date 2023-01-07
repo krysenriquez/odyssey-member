@@ -47,7 +47,9 @@
 [data-n-id] {
   text {
     font-size: 1.5rem !important;
+    font-weight: 600;
     transform: translate(0rem, 0px);
+    fill: var(--kt-text-dark);
   }
 }
 
@@ -104,21 +106,5 @@
   circle {
     stroke: $package-starter;
     stroke-width: 10px;
-  }
-}
-
-[data-theme='light'] {
-  [data-n-id] {
-    text {
-      color: var(--kt-text-dark);
-    }
-  }
-}
-
-[data-theme='dark'] {
-  [data-n-id] {
-    text {
-      color: var(--kt-text-dark);
-    }
   }
 }

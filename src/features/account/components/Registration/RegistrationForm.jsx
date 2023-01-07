@@ -1,10 +1,10 @@
 import clsx from 'clsx'
 import {useEffect, useRef, useState} from 'react'
-import {string, object, boolean, number, array, ref, date} from 'yup'
 import {Formik, Form} from 'formik'
 import {toast} from 'react-toastify'
 import {CustomSVG} from '@/components/elements/SVG/CustomSVG'
 import {useStepper} from '@/components/elements/Stepper/context'
+import {useStateProviderContext} from '@/providers/StateProvider'
 import {useVerificationContext} from '../../stores/VerificationProvider'
 import {useRegistrationContext} from '../../stores/RegistrationProvider'
 import {useModalContext} from '@/components/elements/Modal/CustomModal'
@@ -21,6 +21,7 @@ import registrationFormModel from '../../models/Registration/registrationFormMod
 import registrationInitialValues from '../../models/Registration/registrationInitialValues'
 
 export const RegistrationForm = (props) => {
+  const {refresh} = useStateProviderContext()
   const {formId, formField} = registrationFormModel
   const {toggleModal} = useModalContext()
   const {node} = useRegistrationContext()
@@ -76,7 +77,6 @@ export const RegistrationForm = (props) => {
 
   useEffect(() => {
     if (node) {
-      console.log(node)
       setInitialMember((prevState) => {
         return {
           ...prevState,
@@ -104,8 +104,12 @@ export const RegistrationForm = (props) => {
     return convertedDate
   }
 
+  const refreshPage = () => {
+    refresh()
+    toggleModal()
+  }
+
   const submitStep = (values, actions) => {
-    console.log(values)
     if (currentStep < steps.length - 1) {
       incrementCurrentStep()
     } else {
@@ -114,13 +118,14 @@ export const RegistrationForm = (props) => {
         values.personalInfo.birthdate = convertDate(values.personalInfo.birthdate)
         createMember(values).then((response) => {
           toast.success(response.data.message)
-          toggleModal()
+          refreshPage()
         })
       } catch (ex) {
         values.personalInfo.birthdate = new Date(values.personalInfo.birthdate)
         toast.error(ex.message)
       } finally {
         actions.setSubmitting(true)
+        refreshPage()
       }
     }
   }
@@ -179,7 +184,7 @@ export const RegistrationForm = (props) => {
                     <button
                       type='button'
                       className='btn btn-lg btn-light-primary me-3'
-                      onClick={toggleModal}
+                      onClick={() => refreshPage()}
                     >
                       <CustomSVG
                         path='/public/media/icons/arrows/left-arrow.svg'

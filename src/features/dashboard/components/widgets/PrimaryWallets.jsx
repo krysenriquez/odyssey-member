@@ -46,11 +46,11 @@ export const PrimaryWallets = () => {
   }
 
   return (
-    <div className='row g-5 g-xl-10'>
+    <div className='row g-5 g-xl-10 h-xl-100'>
       {wallets ? (
         wallets.map((wallet) => {
           return (
-            <div className='col-xl-6 widget-wallet' key={wallet.wallet}>
+            <div className='col-xl-6 widget-wallet h-xl-100' key={wallet.wallet}>
               <div
                 className={clsx(
                   'card card-flush h-xl-100 cursor-pointer hover-elevate-up shadow-sm parent-hover widget-content',
@@ -64,7 +64,7 @@ export const PrimaryWallets = () => {
                 }}
               >
                 <div className='card-body'>
-                  <span className='card-title fw-bold text-white fs-7 mb-3 d-block'>
+                  <span className='card-title fw-bold text-white fs-5 mb-3 d-block'>
                     {intl.formatMessage({id: wallet.wallet})}
                   </span>
                   <div className='d-flex align-items-center'>

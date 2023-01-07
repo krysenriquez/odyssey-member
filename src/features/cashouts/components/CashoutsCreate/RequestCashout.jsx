@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react'
 import {Formik, Form} from 'formik'
+import {useIntl} from 'react-intl'
 import {useAccount} from '@/providers/AccountProvider'
 import {useCashouts} from '@/features/cashouts/stores/CashoutsProvider'
 import requestCashoutSchema from '@/features/cashouts/models/requestCashoutSchema'
@@ -7,7 +8,8 @@ import cashoutFormModel from '@/features/cashouts/models/cashoutFormModel'
 import cashoutInitialValues from '@/features/cashouts/models/cashoutInitialValues'
 import FloatingInputField from '@/components/elements/Input/Floating/FloatingInputField'
 import FloatingSelectField from '@/components/elements/Input/Floating/FloatingSelectField'
-import {CashoutsCreate} from '@/features/cashouts/components/CashoutsCreate/CashoutsCreate'
+import {CashoutsCreateModal} from '@/features/cashouts/components/CashoutsCreate/CashoutsCreateModal'
+import {CustomSVG} from '@/components/elements/SVG/CustomSVG'
 
 const cashoutWallets = [
   {
@@ -25,7 +27,8 @@ const cashoutWallets = [
 ]
 
 export const RequestCashout = () => {
-  const {setCashout} = useCashouts()
+  const intl = useIntl()
+  const {setCashout, cashoutSchedules, cashoutTotalFee} = useCashouts()
   const {currentAccount} = useAccount()
   const [initialCashout, setInitialCashout] = useState(cashoutInitialValues)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -37,6 +40,14 @@ export const RequestCashout = () => {
       })
     }
   }, [currentAccount])
+
+  useEffect(() => {
+    if (cashoutTotalFee) {
+      setInitialCashout((prevState) => {
+        return {...prevState, activityAdminFee: cashoutTotalFee}
+      })
+    }
+  }, [cashoutTotalFee])
 
   const {
     formField: {
@@ -51,7 +62,7 @@ export const RequestCashout = () => {
     setIsModalOpen(!isModalOpen)
   }
 
-  const submitStep = async (values, actions) => {
+  const submitForm = async (values, actions) => {
     setCashout(values)
     toggleModal()
   }
@@ -59,14 +70,36 @@ export const RequestCashout = () => {
   return (
     <div className='card h-xl-100'>
       <div className='card-body'>
+        <div className='notice d-flex align-items-center bg-light-warning rounded border-warning border border-dashed mb-4 p-2'>
+          <CustomSVG
+            path='/public/media/icons/general/exclamation.svg'
+            className='svg-icon svg-icon-1 svg-icon-primary me-2 ms-2'
+          />
+          <div className='d-flex flex-stack flex-grow-1'>
+            <div className='fw-semibold lh-sm'>
+              {cashoutSchedules ? (
+                cashoutSchedules.map((schedule) => {
+                  return Object.keys(schedule).map((key) => {
+                    return (
+                      <div className='text-gray-700 fw-bold' key={key}>
+                        {intl.formatMessage({id: key}) + ` ` + schedule[key]}
+                      </div>
+                    )
+                  })
+                })
+              ) : (
+                <></>
+              )}
+            </div>
+          </div>
+        </div>
         <Formik
           enableReinitialize
           validateOnChange={false}
           validateOnMount={false}
-          validateOnBlur={false}
           validationSchema={requestCashoutSchema}
           initialValues={initialCashout}
-          onSubmit={submitStep}
+          onSubmit={submitForm}
         >
           {(actions) => (
             <Form>
@@ -94,7 +127,7 @@ export const RequestCashout = () => {
               <div className='d-flex align-items-end'>
                 <button
                   type='submit'
-                  className='btn btn-primary  fs-3 w-100'
+                  className='btn btn-primary fs-4 w-100'
                   disabled={actions.isSubmitting || !actions.isValid || !actions.touched}
                 >
                   <span className='indicator-label'>Create Cashout</span>
@@ -110,7 +143,7 @@ export const RequestCashout = () => {
           )}
         </Formik>
       </div>
-      {isModalOpen && <CashoutsCreate isModalOpen={isModalOpen} toggleModal={toggleModal} />}
+      {isModalOpen && <CashoutsCreateModal isModalOpen={isModalOpen} toggleModal={toggleModal} />}
     </div>
   )
 }

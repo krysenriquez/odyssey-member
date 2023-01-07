@@ -1,14 +1,26 @@
 import clsx from 'clsx'
+import {useIntl} from 'react-intl'
 import {toNumber} from '@/utils/toCurrency'
 import {CustomSVG} from '@/components/elements/SVG/CustomSVG'
 
 export const StepPackage = ({packagePlan}) => {
+  const intl = useIntl()
   return (
     <div className='w-100'>
       <div className='d-flex h-100 align-items-center'>
         <div className='w-100 d-flex flex-column flex-center px-10'>
           <div className='mb-7 text-center'>
-            <h1 className='text-dark mb-5 fw-bolder'>{packagePlan.packageName}</h1>
+            <div className='d-flex align-items-center mb-2'>
+              <h1 className='text-dark fw-bolder'>{packagePlan.packageName}</h1>
+              {packagePlan.codeType ? (
+                <span className='badge badge-light-primary badge-lg mt-n2 mx-2'>
+                  {intl.formatMessage({id: packagePlan.codeType})}
+                </span>
+              ) : (
+                <></>
+              )}
+            </div>
+
             <div className='text-center'>
               <span className='mb-2 text-primary'>₱</span>
               <span className='fs-3x fw-bold text-primary'>

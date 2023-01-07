@@ -38,7 +38,6 @@ const AuthProvider = ({children}) => {
       if (auth && auth.refresh) {
         const {data} = await refreshToken(auth.refresh)
         if (data) {
-          console.log('Auth Refreshed')
           saveAuth(data)
         }
       }

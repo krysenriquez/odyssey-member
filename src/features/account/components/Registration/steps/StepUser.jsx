@@ -36,7 +36,7 @@ export const StepUser = (props) => {
       </div>
       <div className='mb-5 row fv-plugins-icon-container'>
         <div className='col-12'>
-          <InputField name={repeatPassword.name} label={repeatPassword.label} required />
+          <PasswordField name={repeatPassword.name} label={repeatPassword.label} required />
         </div>
       </div>
     </div>

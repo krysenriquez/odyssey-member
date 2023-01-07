@@ -8,6 +8,7 @@ import {LayoutProvider} from '@/providers/layout/LayoutProvider'
 import {LayoutSplashScreen} from '@/providers/SplashScreen'
 import {MasterInit} from '@/components/layouts/MasterInit'
 import {EnumsListQueryProvider} from '@/providers/EnumsListProvider'
+import {StateProvider} from '@/providers/StateProvider'
 // import {ErrorsPage} from 'features/errors/ErrorsPage'
 import PublicRoutes from './PublicRoutes'
 import PrivateRoutes from './PrivateRoutes'
@@ -20,9 +21,11 @@ const App = () => {
       <I18nProvider>
         <LayoutProvider>
           <AuthInit>
-            <AccountProvider>
-              <Outlet />
-            </AccountProvider>
+            <StateProvider>
+              <AccountProvider>
+                <Outlet />
+              </AccountProvider>
+            </StateProvider>
             <ToastContainer />
             <MasterInit />
           </AuthInit>

@@ -25,7 +25,6 @@ const GenealogyRequestProvider = ({children}) => {
 
   useEffect(() => {
     setCurrentHistoryIndex(history.length - 1)
-    console.log(history)
   }, [history])
 
   useEffect(() => {

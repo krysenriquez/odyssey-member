@@ -4,7 +4,7 @@ import {format} from 'date-fns'
 import {toCurrency} from '@/utils/toCurrency'
 export const walletSummaryColumn = [
   {
-    header: 'Cashout #',
+    header: 'Activity #',
     accessorFn: (row) => row.activityNumber,
     id: 'activityNumber',
     cell: (info) => <span className='ms-4'>{info.getValue()}</span>,
@@ -20,8 +20,8 @@ export const walletSummaryColumn = [
   },
   {
     header: 'Amount',
-    accessorFn: (row) => row.amount,
-    id: 'amount',
+    accessorFn: (row) => row.activityAmount,
+    id: 'activityAmount',
     cell: (info) => {
       return toCurrency(info.getValue())
     },

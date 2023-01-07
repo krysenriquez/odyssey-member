@@ -76,7 +76,6 @@ export default {
         key: 'street',
         name: 'addressInfo.street',
         label: 'Street',
-        requiredErrorMsg: 'Street is required',
       },
       city: {
         key: 'city',

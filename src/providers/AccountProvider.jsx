@@ -4,7 +4,7 @@ import * as authUtils from '@/features/auth/utils/AuthUtils'
 import {getAccount} from '@/features/auth/api'
 import {toast} from 'react-toastify'
 import {useAuth} from './AuthProvider'
-
+import {useStateProviderContext} from './StateProvider'
 const AccountContext = createContext({
   currentAccount: undefined,
   setCurrentAccount: (any) => {},
@@ -16,6 +16,7 @@ const useAccount = () => {
 
 const AccountProvider = ({children}) => {
   const {auth, logout} = useAuth()
+  const {state} = useStateProviderContext()
   const [currentAccount, setCurrentAccount] = useState(undefined)
   const didRequest = useRef(false)
 
@@ -43,7 +44,7 @@ const AccountProvider = ({children}) => {
     if (auth) {
       requestAccount()
     }
-  }, [auth])
+  }, [auth, state])
 
   return (
     <AccountContext.Provider

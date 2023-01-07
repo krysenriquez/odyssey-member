@@ -35,7 +35,7 @@ const AsideMenuUpgrade = () => {
           }}
         >
           <CustomSVG
-            path='/public/media/icons/general/small-star.svg'
+            path='/public/media/icons/arrows/double-caret-up.svg'
             className='svg-icon-1 svg-icon-2x svg-icon-primary'
           />
           Upgrade Account

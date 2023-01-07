@@ -1,20 +1,23 @@
 import {useState, useMemo, useEffect} from 'react'
 import {useGenealogyRequest} from '../stores/GenealogyRequestProvider'
-import {useGenealogyQueryData, useGenealogyQueryLoading} from '../stores/GenealogyQueryProvider'
+import {
+  useGenealogyQueryData,
+  useGenealogyQueryLoading,
+  useGenealogyQueryContext,
+} from '../stores/GenealogyQueryProvider'
 import {CustomCardOverlay} from '@/components/elements/Card'
 import {toAbsoluteUrl} from '@/utils/toAbsoluteUrl'
-import {useAccount} from '@/providers/AccountProvider'
 import {GenealogyChart} from '@/components/elements/GenealogyChart'
 import {CustomSVG} from '@/components/elements/SVG/CustomSVG'
 import {DebouncedInput} from '@/components/elements/Input/DebouncedInput'
 import {GenealogyCreate} from './GenealogyCreate'
 
 export const GenealogyTree = () => {
-  const {currentAccount} = useAccount()
   const {history, currentHistoryIndex, setCurrentHistoryIndex, updateGenealogyAccountId} =
     useGenealogyRequest()
   const response = useGenealogyQueryData()
   const isLoading = useGenealogyQueryLoading()
+  const {refetch} = useGenealogyQueryContext()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const genealogy = useMemo(() => response, [response])
   const [tree, setTree] = useState([])
@@ -448,6 +451,7 @@ export const GenealogyTree = () => {
   }
 
   const toggleModal = () => {
+    refetch()
     setIsModalOpen(!isModalOpen)
   }
 
