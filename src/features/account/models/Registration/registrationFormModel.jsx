@@ -95,6 +95,8 @@ export default {
         key: 'username',
         name: 'user.username',
         label: 'Username',
+        min: 8,
+        max: 20,
         requiredErrorMsg: 'Username is required',
       },
       emailAddress: {

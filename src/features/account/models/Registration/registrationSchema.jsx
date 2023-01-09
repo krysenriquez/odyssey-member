@@ -158,8 +158,8 @@ export default [
       [username.key]: string()
         .trim()
         .required(`${username.requiredErrorMsg}`)
-        .min(5)
-        .max(20)
+        .min(username.min, `${username.label} must be a minimum of ${username.min} characters`)
+        .max(username.max, `${username.label} must be a maximum of ${username.max} characters`)
         .test({
           name: 'is-valid-username',
           test: (value, ctx) => validateUsername(ctx),

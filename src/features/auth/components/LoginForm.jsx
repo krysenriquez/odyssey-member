@@ -7,6 +7,7 @@ import {useIntl} from 'react-intl'
 import {getUserByToken, login} from '../api'
 import {useAuth} from '@/providers/AuthProvider'
 import {toast} from 'react-toastify'
+import {TermsAndConditionsModal} from './TermsAndConditionsModal'
 
 const loginSchema = Yup.object().shape({
   username: Yup.string()
@@ -17,11 +18,13 @@ const loginSchema = Yup.object().shape({
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
     .required('Password is required'),
+  toc: Yup.boolean().oneOf([true], 'Must agree to Terms and Conditions'),
 })
 
 const initialValues = {
   username: '',
   password: '',
+  toc: false,
 }
 
 export const LoginForm = () => {
@@ -49,6 +52,11 @@ export const LoginForm = () => {
       }
     },
   })
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen)
+  }
 
   return (
     <>
@@ -118,6 +126,29 @@ export const LoginForm = () => {
             Forgot Password ?
           </Link>
         </div>
+        <div className='fv-row mb-8 fv-plugins-icon-container fv-plugins-bootstrap5-row-valid'>
+          <label className='form-check form-check-inline'>
+            <input
+              className='form-check-input'
+              type='checkbox'
+              name='toc'
+              {...formik.getFieldProps('toc')}
+            />
+            <span className='form-check-label fw-semibold text-gray-700 fs-base ms-1'>
+              I Accept the
+              <a href='#' className='ms-1 link-primary' onClick={toggleModal}>
+                Terms and Conditions
+              </a>
+            </span>
+          </label>
+          {formik.touched.toc && formik.errors.toc && (
+            <div className='fv-plugins-message-container'>
+              <div className='fv-help-block'>
+                <span role='alert'>{formik.errors.toc}</span>
+              </div>
+            </div>
+          )}
+        </div>
         <div className='fv-row mb-10'></div>
         <div className='text-center mb-10'>
           <button
@@ -136,6 +167,9 @@ export const LoginForm = () => {
           </button>
         </div>
       </form>
+      {isModalOpen && (
+        <TermsAndConditionsModal isModalOpen={isModalOpen} toggleModal={toggleModal} />
+      )}
     </>
   )
 }
