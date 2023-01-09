@@ -18,7 +18,7 @@ const ViewCell = (props) => {
         className='btn btn-icon btn-light btn-sm border-0'
         onClick={() => viewRecord()}
       >
-        <CustomSVG path='/media/icons/actions/view.svg' className='svg-icon-2' />
+        <CustomSVG path='/media/icons/general/magnifying-glass.svg' className='svg-icon-2' />
       </button>
     </>
   )
