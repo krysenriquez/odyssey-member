@@ -10,7 +10,7 @@ import {MasterInit} from '@/components/layouts/MasterInit'
 import {EnumsListQueryProvider} from '@/providers/EnumsListProvider'
 import {StateProvider} from '@/providers/StateProvider'
 // import {ErrorsPage} from 'features/errors/ErrorsPage'
-import PublicRoutes from '.Routes'
+import PublicRoutes from './PublicRoutes'
 import PrivateRoutes from './PrivateRoutes'
 import {ToastContainer} from 'react-toastify'
 const {PUBLIC_URL} = import.meta.env
