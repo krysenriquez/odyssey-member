@@ -44,7 +44,7 @@ const HeaderNotifications = ({
                 <div className='timeline-icon symbol symbol-circle symbol-20px'>
                   <div className='symbol-label bg-light'>
                     <CustomSVG
-                      path='/public/media/icons/files/pin.svg'
+                      path='/media/icons/files/pin.svg'
                       className='svg-icon-2 svg-icon-gray-500'
                     />
                   </div>
@@ -67,7 +67,7 @@ const HeaderNotifications = ({
               className='btn btn-color-gray-600 btn-active-color-primary'
             >
               View All{' '}
-              <CustomSVG path='/public/media/icons/arrows/left-arrow.svg' className='svg-icon-5' />
+              <CustomSVG path='/media/icons/arrows/left-arrow.svg' className='svg-icon-5' />
             </Link>
           </div>
         </div>

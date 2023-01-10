@@ -27,14 +27,14 @@ const ThemeModeSwitcher = ({
       >
         {calculatedMode === 'dark' && (
           <CustomSVG
-            path='/public/media/icons/dark.svg'
+            path='/media/icons/dark.svg'
             className={clsx('theme-light-hide', toggleBtnIconClass)}
           />
         )}
 
         {calculatedMode === 'light' && (
           <CustomSVG
-            path='/public/media/icons/light.svg'
+            path='/media/icons/light.svg'
             className={clsx('theme-dark-hide', toggleBtnIconClass)}
           />
         )}
@@ -56,7 +56,7 @@ const ThemeModeSwitcher = ({
             onClick={() => switchMode('light')}
           >
             <span className='menu-icon' data-element='icon'>
-              <CustomSVG path='/public/media/icons/light.svg' className='svg-icon-3' />
+              <CustomSVG path='/media/icons/light.svg' className='svg-icon-3' />
             </span>
             <span className='menu-title'>Light</span>
           </a>
@@ -73,7 +73,7 @@ const ThemeModeSwitcher = ({
             onClick={() => switchMode('dark')}
           >
             <span className='menu-icon' data-element='icon'>
-              <CustomSVG path='/public/media/icons/dark.svg' className='svg-icon-3' />
+              <CustomSVG path='/media/icons/dark.svg' className='svg-icon-3' />
             </span>
             <span className='menu-title'>Dark</span>
           </a>
@@ -90,7 +90,7 @@ const ThemeModeSwitcher = ({
             onClick={() => switchMode('system')}
           >
             <span className='menu-icon' data-element='icon'>
-              <CustomSVG path='/public/media/icons/system.svg' className='svg-icon-3' />
+              <CustomSVG path='/media/icons/system.svg' className='svg-icon-3' />
             </span>
             <span className='menu-title'>System</span>
           </a>

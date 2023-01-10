@@ -65,13 +65,13 @@ export function HeaderWrapper() {
               className='btn btn-icon btn-color-gray-600 btn-active-color-primary ms-n3 me-2 d-flex d-lg-none'
               id='kt_app_sidebar_toggle'
             >
-              <CustomSVG path='/public/media/icons/hamburger.svg' className='svg-icon-1' />
+              <CustomSVG path='/media/icons/hamburger.svg' className='svg-icon-1' />
             </button>
             <div className='d-flex align-items-center flex-grow-1 flex-lg-grow-0'>
               <Link to='/dashboard'>
                 <img
                   alt='Logo'
-                  src={toAbsoluteUrl('/public/media/logos/tci.png')}
+                  src={toAbsoluteUrl('/media/logos/tci.png')}
                   className='h-30px h-lg-70px'
                 />
               </Link>

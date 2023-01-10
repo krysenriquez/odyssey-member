@@ -14,8 +14,8 @@ export const StepCompleted = () => {
           alt='Logo'
           src={toAbsoluteUrl(
             mode == 'dark'
-              ? '/public/media/illustrations/palms/creation-dark.png'
-              : '/public/media/illustrations/palms/creation.png'
+              ? '/media/illustrations/palms/creation-dark.png'
+              : '/media/illustrations/palms/creation.png'
           )}
           className='mw-100 mh-250px'
         />

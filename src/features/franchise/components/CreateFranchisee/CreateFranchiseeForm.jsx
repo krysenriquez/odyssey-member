@@ -120,7 +120,7 @@ export const CreateFranchiseeForm = () => {
           <Form id={formId}>
             <div className='notice d-flex bg-light-warning rounded border-warning border border-dashed mb-9 p-6'>
               <CustomSVG
-                path='/public/media/icons/ecommerce/cart.svg'
+                path='/media/icons/ecommerce/cart.svg'
                 className='svg-icon svg-icon-2tx svg-icon-warning me-6'
               />
               <div className='d-flex flex-stack flex-grow-1'>

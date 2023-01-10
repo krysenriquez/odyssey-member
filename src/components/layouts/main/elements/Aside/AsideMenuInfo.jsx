@@ -10,7 +10,7 @@ const AsideMenuInfo = () => {
             <span className='text-gray-900 fs-2 fw-bold me-1'>{currentAccount.accountName}</span>
             <div>
               <CustomSVG
-                path='/public/media/icons/general/verified.svg'
+                path='/media/icons/general/verified.svg'
                 className='svg-icon-1 svg-icon-2x svg-icon-primary'
               />
             </div>

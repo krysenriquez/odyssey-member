@@ -72,7 +72,7 @@ export const RequestCashout = () => {
       <div className='card-body'>
         <div className='notice d-flex align-items-center bg-light-warning rounded border-warning border border-dashed mb-4 p-2'>
           <CustomSVG
-            path='/public/media/icons/general/exclamation.svg'
+            path='/media/icons/general/exclamation.svg'
             className='svg-icon svg-icon-1 svg-icon-primary me-2 ms-2'
           />
           <div className='d-flex flex-stack flex-grow-1'>

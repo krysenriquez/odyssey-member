@@ -50,7 +50,7 @@ export const PointValueWallets = () => {
                         <div className='symbol symbol-30px me-5 mb-8'>
                           <span className='symbol-label'>
                             <CustomSVG
-                              path='/public/media/icons/general/box.svg'
+                              path='/media/icons/general/box.svg'
                               className='svg-icon svg-icon-1 svg-icon-primary'
                             />
                           </span>

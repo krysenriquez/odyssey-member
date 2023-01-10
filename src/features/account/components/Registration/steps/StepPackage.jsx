@@ -43,12 +43,12 @@ export const StepPackage = ({packagePlan}) => {
                     </span>
                     {value ? (
                       <CustomSVG
-                        path='/public/media/icons/general/check.svg'
+                        path='/media/icons/general/check.svg'
                         className='svg-icon svg-icon-1 svg-icon-success'
                       />
                     ) : (
                       <CustomSVG
-                        path='/public/media/icons/general/cross.svg'
+                        path='/media/icons/general/cross.svg'
                         className='svg-icon svg-icon-1'
                       />
                     )}

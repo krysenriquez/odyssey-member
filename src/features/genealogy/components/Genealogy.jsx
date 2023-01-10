@@ -23,7 +23,7 @@ export const GenealogyTree = () => {
   const [tree, setTree] = useState([])
   const [selectedNode, setSelectedNode] = useState(undefined)
 
-  const defaultAvatar = toAbsoluteUrl('/public/media/avatars/blank.png')
+  const defaultAvatar = toAbsoluteUrl('/media/avatars/blank.png')
   var jsonTree = []
 
   const fourthGenJSON = (object) => {
@@ -479,7 +479,7 @@ export const GenealogyTree = () => {
         <div className='d-flex flex-wrap justify-content-between'>
           <div className='d-flex align-items-center position-relative'>
             <CustomSVG
-              path='/public/media/icons/search.svg'
+              path='/media/icons/search.svg'
               className='svg-icon-1 position-absolute ms-6'
             />
             <DebouncedInput
@@ -497,7 +497,7 @@ export const GenealogyTree = () => {
               disabled={currentHistoryIndex <= 0 ? true : false}
             >
               <CustomSVG
-                path='/public/media/icons/arrows/left-arrow.svg'
+                path='/media/icons/arrows/left-arrow.svg'
                 className='svg-icon svg-icon-1'
               />
             </button>
@@ -508,7 +508,7 @@ export const GenealogyTree = () => {
               disabled={currentHistoryIndex >= history.length - 1 ? true : false}
             >
               <CustomSVG
-                path='/public/media/icons/arrows/right-arrow.svg'
+                path='/media/icons/arrows/right-arrow.svg'
                 className='svg-icon svg-icon-1'
               />
             </button>

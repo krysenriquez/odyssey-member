@@ -35,7 +35,7 @@ const AsideMenuFranchise = () => {
           }}
         >
           <CustomSVG
-            path='/public/media/icons/ecommerce/cart.svg'
+            path='/media/icons/ecommerce/cart.svg'
             className='svg-icon-1 svg-icon-2x svg-icon-primary'
           />
           Register Franchise

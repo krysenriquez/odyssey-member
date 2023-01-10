@@ -6,13 +6,13 @@ export const AuthLayout = () => {
     <div className='d-flex flex-column flex-lg-row flex-column-fluid'>
       <div
         className='d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center'
-        style={{backgroundImage: 'url(/public/media/misc/auth.png)'}}
+        style={{backgroundImage: 'url(/media/misc/auth.png)'}}
       >
         <div className='d-flex flex-column flex-center py-7 py-lg-15 px-5 px-md-15 w-100'>
           <div className='mb-0 mb-lg-12'>
             <img
               alt='Logo'
-              src={toAbsoluteUrl('/public/media/logos/tci.png')}
+              src={toAbsoluteUrl('/media/logos/tci.png')}
               className='h-100px h-lg-150px'
             />
           </div>

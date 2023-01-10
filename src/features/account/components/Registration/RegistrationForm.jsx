@@ -187,7 +187,7 @@ export const RegistrationForm = (props) => {
                       onClick={() => refreshPage()}
                     >
                       <CustomSVG
-                        path='/public/media/icons/arrows/left-arrow.svg'
+                        path='/media/icons/arrows/left-arrow.svg'
                         className='svg-icon svg-icon-3 me-1'
                       />
                       Discard
@@ -200,7 +200,7 @@ export const RegistrationForm = (props) => {
                       onClick={prevStep}
                     >
                       <CustomSVG
-                        path='/public/media/icons/arrows/left-arrow.svg'
+                        path='/media/icons/arrows/left-arrow.svg'
                         className='svg-icon svg-icon-3 me-1'
                       />
                       Back
@@ -213,7 +213,7 @@ export const RegistrationForm = (props) => {
                       <span className='indicator-label'>
                         Submit
                         <CustomSVG
-                          path='/public/media/icons/arrows/right-arrow.svg'
+                          path='/media/icons/arrows/right-arrow.svg'
                           className='svg-icon svg-icon-3 me-1'
                         />
                       </span>
@@ -227,7 +227,7 @@ export const RegistrationForm = (props) => {
                     <button type='submit' className='btn btn-lg btn-primary btn-light-primary'>
                       Continue
                       <CustomSVG
-                        path='/public/media/icons/arrows/right-arrow.svg'
+                        path='/media/icons/arrows/right-arrow.svg'
                         className='svg-icon svg-icon-3 me-1'
                       />
                     </button>
