@@ -18,7 +18,9 @@ const loginSchema = Yup.object().shape({
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
     .required('Password is required'),
-  toc: Yup.boolean().oneOf([true], 'Must agree to Terms and Conditions'),
+  toc: Yup.boolean()
+    .required('Must agree to Terms and Conditions')
+    .oneOf([true], 'Must agree to Terms and Conditions'),
 })
 
 const initialValues = {
@@ -34,6 +36,8 @@ export const LoginForm = () => {
   const formik = useFormik({
     initialValues,
     validationSchema: loginSchema,
+    validateOnChange: false,
+    validateOnBlur: true,
     onSubmit: async (values, {setStatus, setSubmitting}) => {
       setLoading(true)
       try {
@@ -132,6 +136,7 @@ export const LoginForm = () => {
               className='form-check-input'
               type='checkbox'
               name='toc'
+              checked={formik.values.toc}
               {...formik.getFieldProps('toc')}
             />
             <span className='form-check-label fw-semibold text-gray-700 fs-base ms-1'>

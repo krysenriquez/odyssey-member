@@ -20,6 +20,8 @@
         "axios": "^1.2.0",
         "bootstrap": "^5.2.3",
         "bootstrap-icons": "^1.10.2",
+        "d3": "^7.8.0",
+        "d3-org-chart": "^2.6.0",
         "date-fns": "^2.29.3",
         "formik": "^2.2.9",
         "humps": "^2.0.1",

@@ -5,6 +5,8 @@ import {initialQuery} from '@/config/const'
 import {getGenealogy, GET_GENEALOGY_URL} from '../api'
 import {useGenealogyRequest} from './GenealogyRequestProvider'
 import {useMemo} from 'react'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const GenealogyQueryContext = createContext(initialQuery)
 
@@ -12,18 +14,21 @@ const GenealogyQueryProvider = ({children}) => {
   const {genealogyAccountId} = useGenealogyRequest()
   const [accountId, setAccountId] = useState(genealogyAccountId)
   const updatedAccountId = useMemo(() => genealogyAccountId, [genealogyAccountId])
+  const swal = withReactContent(Swal)
 
   useEffect(() => {
-    if (accountId !== updatedAccountId) { 
+    if (accountId !== updatedAccountId) {
       setAccountId(updatedAccountId)
     }
   }, [updatedAccountId])
 
   useEffect(() => {
-    refetch()
+    refetch().then((response) => {
+      if (!response.isFetched) swal.fire('Error!', 'Unable to fetch Account', 'error')
+    })
   }, [accountId])
 
-  const { 
+  const {
     isFetching,
     refetch,
     data: response,

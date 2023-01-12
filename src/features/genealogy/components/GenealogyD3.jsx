@@ -7,12 +7,13 @@ import {
 } from '../stores/GenealogyQueryProvider'
 import {CustomCardOverlay} from '@/components/elements/Card'
 import {toAbsoluteUrl} from '@/utils/toAbsoluteUrl'
-import {GenealogyChart} from '@/components/elements/GenealogyChart'
 import {CustomSVG} from '@/components/elements/SVG/CustomSVG'
+import {DebouncedInput} from '@/components/elements/Input/DebouncedInput'
 import {SearchAccount} from '@/components/elements/Input/SearchAccount'
 import {GenealogyCreate} from './GenealogyCreate'
+import {OrganizationalChart} from '@/components/elements/OrgChart'
 
-export const GenealogyTree = () => {
+export const GenealogyDeeTree = () => {
   const {history, currentHistoryIndex, setCurrentHistoryIndex, updateGenealogyAccountId} =
     useGenealogyRequest()
   const response = useGenealogyQueryData()
@@ -65,7 +66,7 @@ export const GenealogyTree = () => {
             name: child.accountFullName,
             avatar: avatar,
             packageName: child.packageName,
-            pid: object.accountId,
+            parentId: object.accountId,
             parentAccountNumber: object.accountNumber,
             parentName: object.accountFullName,
             parentSide: child.parentSide,
@@ -76,7 +77,7 @@ export const GenealogyTree = () => {
             id: 'add_right_' + object.accountId,
             name: 'Add Member',
             avatar: blankAvatar,
-            pid: object.accountId,
+            parentId: object.accountId,
             parentAccountNumber: object.accountNumber,
             parentName: object.accountFullName,
             parentSide: 'RIGHT',
@@ -96,7 +97,7 @@ export const GenealogyTree = () => {
             id: 'add_left_' + object.accountId,
             name: 'Add Member',
             avatar: blankAvatar,
-            pid: object.accountId,
+            parentId: object.accountId,
             parentAccountNumber: object.accountNumber,
             parentName: object.accountFullName,
             parentSide: 'LEFT',
@@ -113,7 +114,7 @@ export const GenealogyTree = () => {
             name: child.accountFullName,
             packageName: child.packageName,
             avatar: avatar,
-            pid: object.accountId,
+            parentId: object.accountId,
             parentAccountNumber: object.accountNumber,
             parentName: object.accountFullName,
             parentSide: child.parentSide,
@@ -131,7 +132,7 @@ export const GenealogyTree = () => {
             name: child.accountFullName,
             packageName: child.packageName,
             avatar: avatar,
-            pid: object.accountId,
+            parentId: object.accountId,
             parentAccountNumber: object.accountNumber,
             parentName: object.accountFullName,
             parentSide: child.parentSide,
@@ -152,7 +153,7 @@ export const GenealogyTree = () => {
         id: 'add_left_' + object.accountId,
         name: 'Add Member',
         avatar: blankAvatar,
-        pid: object.accountId,
+        parentId: object.accountId,
         parentAccountNumber: object.accountNumber,
         parentName: object.accountFullName,
         parentSide: 'LEFT',
@@ -167,7 +168,7 @@ export const GenealogyTree = () => {
         id: 'add_right_' + object.accountId,
         name: 'Add Member',
         avatar: blankAvatar,
-        pid: object.accountId,
+        parentId: object.accountId,
         parentAccountNumber: object.accountNumber,
         parentName: object.accountFullName,
         parentSide: 'RIGHT',
@@ -206,7 +207,7 @@ export const GenealogyTree = () => {
             name: child.accountFullName,
             packageName: child.packageName,
             avatar: avatar,
-            pid: parentObject.accountId,
+            parentId: parentObject.accountId,
             parentAccountNumber: parentObject.accountNumber,
             parentName: parentObject.accountFullName,
             parentSide: child.parentSide,
@@ -219,7 +220,7 @@ export const GenealogyTree = () => {
               parentObject.accountId,
             name: (parentObject.path.includes('LEFT') ? 'Blank' : 'Add') + ' Member',
             avatar: parentObject.path.includes('LEFT') ? defaultDisabledAvatar : blankAvatar,
-            pid: parentObject.accountId,
+            parentId: parentObject.accountId,
             parentAccountNumber: parentObject.accountNumber,
             parentName: parentObject.accountFullName,
             parentSide: 'RIGHT',
@@ -241,7 +242,7 @@ export const GenealogyTree = () => {
               parentObject.accountId,
             name: (parentObject.path.includes('RIGHT') ? 'Blank' : 'Add') + ' Member',
             avatar: parentObject.path.includes('RIGHT') ? defaultDisabledAvatar : blankAvatar,
-            pid: parentObject.accountId,
+            parentId: parentObject.accountId,
             parentAccountNumber: parentObject.accountNumber,
             parentName: parentObject.accountFullName,
             parentSide: 'LEFT',
@@ -258,7 +259,7 @@ export const GenealogyTree = () => {
             name: child.accountFullName,
             packageName: child.packageName,
             avatar: avatar,
-            pid: parentObject.accountId,
+            parentId: parentObject.accountId,
             parentAccountNumber: parentObject.accountNumber,
             parentName: parentObject.accountFullName,
             parentSide: child.parentSide,
@@ -276,7 +277,7 @@ export const GenealogyTree = () => {
             name: child.accountFullName,
             packageName: child.packageName,
             avatar: avatar,
-            pid: parentObject.accountId,
+            parentId: parentObject.accountId,
             parentAccountNumber: parentObject.accountNumber,
             parentName: parentObject.accountFullName,
             parentSide: child.parentSide,
@@ -300,7 +301,7 @@ export const GenealogyTree = () => {
           parentObject.accountId,
         name: (parentObject.path.includes('RIGHT') ? 'Blank' : 'Add') + ' Member',
         avatar: parentObject.path.includes('RIGHT') ? defaultDisabledAvatar : blankAvatar,
-        pid: parentObject.accountId,
+        parentId: parentObject.accountId,
         parentAccountNumber: parentObject.accountNumber,
         parentName: parentObject.accountFullName,
         parentSide: 'LEFT',
@@ -317,7 +318,7 @@ export const GenealogyTree = () => {
           parentObject.accountId,
         name: (parentObject.path.includes('LEFT') ? 'Blank' : 'Add') + ' Member',
         avatar: parentObject.path.includes('LEFT') ? defaultDisabledAvatar : blankAvatar,
-        pid: parentObject.accountId,
+        parentId: parentObject.accountId,
         parentAccountNumber: parentObject.accountNumber,
         parentName: parentObject.accountFullName,
         parentSide: 'RIGHT',
@@ -355,6 +356,8 @@ export const GenealogyTree = () => {
     if (node.tags.includes('addMember')) {
       setSelectedNode(node)
       setIsModalOpen(true)
+    } else if (node.tags.includes('blankMember')) {
+      return false
     } else {
       updateGenealogyAccountId(node.id, false)
     }
@@ -420,7 +423,12 @@ export const GenealogyTree = () => {
             </button>
           </div>
         </div>
-        {tree.length > 0 ? <GenealogyChart nodes={tree} handleClick={clickNode} /> : <></>}
+        <OrganizationalChart
+          nodes={tree}
+          handleClick={clickNode}
+          parentNode={history[currentHistoryIndex]}
+        />
+        {/* {tree.length > 0 ? <GenealogyChart nodes={tree} handleClick={clickNode} /> : <></>} */}
       </CustomCardOverlay>
       {isModalOpen && (
         <GenealogyCreate isModalOpen={isModalOpen} toggleModal={toggleModal} node={selectedNode} />
