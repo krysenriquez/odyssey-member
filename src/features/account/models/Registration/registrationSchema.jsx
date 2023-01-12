@@ -5,6 +5,7 @@ YupPassword(yup)
 import {
   verifyAccountName,
   verifyParentAccountNumber,
+  verifyExtremeSide,
   verifyParentSide,
   verifySponsorAccountNumber,
 } from '../../api'
@@ -72,6 +73,20 @@ const validateParentAccountNumber = async (ctx) => {
     })
 }
 
+const validateExtremeSide = async (ctx) => {
+  return await verifyExtremeSide({
+    parentAccountId: ctx.parent.parentAccountId,
+    sponsorAccountId: ctx.parent.sponsorAccountId,
+    parentSide: ctx.parent.parentSide,
+  })
+    .then((response) => {
+      return true
+    })
+    .catch((err) => {
+      return ctx.createError({path: 'parentSide', message: err.response.data.message})
+    })
+}
+
 const validateParentSide = async (ctx) => {
   return await verifyParentSide(ctx.parent.parentAccountId, ctx.parent.parentSide)
     .then((response) => {
@@ -125,7 +140,7 @@ export default [
       .required(`${parentSide.requiredErrorMsg}`)
       .test({
         name: 'is-valid-parent-side',
-        test: (value, ctx) => validateParentSide(ctx),
+        test: (value, ctx) => validateExtremeSide(ctx),
         exclusive: true,
       }),
   }),

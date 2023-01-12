@@ -9,6 +9,7 @@ const ACCOUNTS_URL = `${API_URL}/accounts`
 const VERIFY_SPONSOR_ACCOUNT_NUMBER_URL = `${ACCOUNTS_URL}/verifysponsoraccountnumber/`
 const VERIFY_PARENT_ACCOUNT_NUMBER_URL = `${ACCOUNTS_URL}/verifyparentaccountnumber/`
 const VERIFY_PARENT_SIDE_URL = `${ACCOUNTS_URL}/verifyparentside/`
+const VERIFY_EXTREME_SIDE_URL = `${ACCOUNTS_URL}/verifyextremeside/`
 const VERIFY_ACCOUNT_NAME_URL = `${ACCOUNTS_URL}/verifyaccountname/`
 
 const USER_URL = `${API_URL}/users`
@@ -26,8 +27,8 @@ export const createMember = (member) => {
   return axios.post(`${CREATE_MEMBER_URL}`, humps.decamelizeKeys(member))
 }
 
-export const verifyExtremeSide = (value) => {
-  return axios.post(`${VERIFY_SPONSOR_ACCOUNT_NUMBER_URL}`, {sponsor_account_id: value})
+export const verifyExtremeSide = (values) => {
+  return axios.post(`${VERIFY_EXTREME_SIDE_URL}`, humps.decamelizeKeys(values))
 }
 
 export const verifySponsorAccountNumber = (value) => {

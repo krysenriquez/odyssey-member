@@ -23,9 +23,7 @@ const GenealogyQueryProvider = ({children}) => {
   }, [updatedAccountId])
 
   useEffect(() => {
-    refetch().then((response) => {
-      if (!response.isFetched) swal.fire('Error!', 'Unable to fetch Account', 'error')
-    })
+    refetch()
   }, [accountId])
 
   const {
@@ -37,7 +35,14 @@ const GenealogyQueryProvider = ({children}) => {
     () => {
       return getGenealogy(accountId)
     },
-    {cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false}
+    {
+      cacheTime: 0,
+      keepPreviousData: true,
+      refetchOnWindowFocus: false,
+      onError: (error) => {
+        swal.fire('Error!', 'Unable to fetch Account', 'error')
+      },
+    }
   )
 
   const value = {
