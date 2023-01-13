@@ -50,13 +50,14 @@ export const PrimaryWallets = () => {
       {wallets ? (
         wallets.map((wallet) => {
           return (
-            <div className='col-xl-6 widget-wallet h-xl-100' key={wallet.wallet}>
+            <div className='col-xl-4 widget-wallet h-xl-100' key={wallet.wallet}>
               <div
                 className={clsx(
                   'card card-flush h-xl-100 cursor-pointer hover-elevate-up shadow-sm parent-hover widget-content',
                   {
                     f_wallet: wallet.wallet == 'F_WALLET',
                     b_wallet: wallet.wallet == 'B_WALLET',
+                    gc_wallet: wallet.wallet == 'GC_WALLET',
                   }
                 )}
                 onClick={() => {

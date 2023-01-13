@@ -13,12 +13,12 @@ const DashboardPage = () => {
         <ActivityProvider>
           <div className='card-deck'>
             <div className='row g-5 g-xl-10 mb-5 mb-xl-10'>
-              <div className='col-xxl-8'>
+              <div className='col-xxl-12'>
                 <PrimaryWallets />
               </div>
-              <div className='col-xxl-4'>
+              {/* <div className='col-xxl-4'>
                 <Cashout />
-              </div>
+              </div> */}
             </div>
           </div>
           <div className='row g-5 g-xl-8 mb-5 mb-xl-10'>

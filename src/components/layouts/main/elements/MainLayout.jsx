@@ -10,6 +10,7 @@ import {Content} from './Content/Content'
 import {ScrollTop} from './Content/ScrollTop'
 import {MenuComponent} from '@/components/assets/components'
 import {Toolbar} from './Toolbar/Toolbar'
+import {RightDrawer} from './Drawer/RightDrawer'
 import {useLayout} from '@/providers/layout/LayoutProvider'
 
 const MainLayout = () => {
@@ -51,6 +52,7 @@ const MainLayout = () => {
           </div>
         </div>
       </div>
+      <RightDrawer />
       <ScrollTop />
     </PageDataProvider>
   )

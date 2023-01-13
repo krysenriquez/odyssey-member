@@ -28,3 +28,18 @@
     #0f0c29
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+.widget-wallet .widget-content.gc_wallet {
+  background: rgb(36, 11, 54);
+  background: -webkit-linear-gradient(
+    90deg,
+    rgba(36, 11, 54, 1) 0%,
+    rgba(130, 17, 37, 1) 50%,
+    rgba(36, 11, 54, 1) 100%
+  );
+  background: linear-gradient(
+    90deg,
+    rgba(36, 11, 54, 1) 0%,
+    rgba(130, 17, 37, 1) 50%,
+    rgba(36, 11, 54, 1) 100%
+  );
+}

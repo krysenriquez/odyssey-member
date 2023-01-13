@@ -13,9 +13,9 @@ const {
 
 export default {
   [accountId.key]: '',
-  [activityAmount.key]: '',
-  [activityAdminFee.key]: '',
-  [activityTotalAmount.key]: '',
+  [activityAmount.key]: 0,
+  [activityAdminFee.key]: 0,
+  [activityTotalAmount.key]: 0,
   [wallet.key]: '',
   [note.key]: '',
   cashoutMethod: {

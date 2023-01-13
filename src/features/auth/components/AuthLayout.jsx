@@ -3,7 +3,7 @@ import {toAbsoluteUrl} from '@/utils/toAbsoluteUrl'
 
 export const AuthLayout = () => {
   return (
-    <div className='d-flex flex-column flex-lg-row flex-column-fluid'>
+    <>
       <div
         className='d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center'
         style={{backgroundImage: 'url(/media/misc/auth.png)'}}
@@ -16,23 +16,33 @@ export const AuthLayout = () => {
               className='h-100px h-lg-150px'
             />
           </div>
-          <h1 className='d-none d-lg-block text-white fs-2qx fw-bolder text-center mb-7'>
-            Fast, Efficient and Productive
-          </h1>
-          <div className='d-none d-lg-block text-white fs-base text-center'>
-            In this kind of post,
-            <a href='#' className='opacity-75-hover text-warning fw-bold me-1'>
-              the blogger
-            </a>
-            introduces a person they’ve interviewed
-            <br />
-            and provides some background information about
-            <a href='#' className='opacity-75-hover text-warning fw-bold me-1'>
-              the interviewee
-            </a>
-            and their
-            <br />
-            work following this is a transcript of the interview.
+          <div className='p-5'>
+            <h1 className='d-none d-lg-block text-white fs-2qx fw-bolder text-center mb-7'>
+              Mission
+            </h1>
+            <div className='d-none d-lg-block text-white  fs-6 text-center'>
+              Our Mission is to be the consumer's
+              <span className='text-warning fw-bold mx-1'>TOP CHOICE</span>
+              for Food Franchising,
+              <br /> Delivering Products of outstanding quality, and great service at a competitive
+              cost.
+              <br />
+              <span className='text-warning fw-bold mx-1'>TOP CHOICE FRANCHISE</span> is commited on
+              uplifting the lives of everyone
+              <br /> by empowering him/her with the business knowledge to become a successful
+              business owner.
+            </div>
+          </div>
+          <div className='p-5'>
+            <h1 className='d-none d-lg-block text-white fs-2qx fw-bolder text-center mb-7'>
+              Vision
+            </h1>
+            <div className='d-none d-lg-block text-white  fs-6 text-center'>
+              To provide excellent services on Food Franchising Business
+              <br /> and create and endless opportunity and be the{' '}
+              <span className='text-warning fw-bold mx-1'>TOP CHOICE</span>
+              in the market. for Food Franchising,
+            </div>
           </div>
         </div>
       </div>
@@ -60,6 +70,6 @@ export const AuthLayout = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

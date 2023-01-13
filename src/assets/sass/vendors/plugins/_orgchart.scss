@@ -52,6 +52,14 @@
     fill: var(--kt-text-dark);
   }
 }
+[data-l-id] {
+  text {
+    font-size: 4rem !important;
+    font-weight: 600;
+    transform: translate(0rem, -10rem);
+    fill: var(--kt-text-dark);
+  }
+}
 
 .node.addMember {
   rect {
