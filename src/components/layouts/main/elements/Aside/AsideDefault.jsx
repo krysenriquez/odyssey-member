@@ -10,6 +10,7 @@ import {AsideMenuStats} from './AsideMenuStats'
 import {AsideMenu} from './AsideMenu'
 import {AsideMenuFranchise} from './AsideMenuFranchise'
 import {WalletProvider} from '@/features/wallets/stores/WalletProvider'
+import {ActivityProvider} from '@/features/activities/stores/ActivityProvider'
 
 const AsideDefault = () => {
   const {classes} = useLayout()
@@ -43,7 +44,9 @@ const AsideDefault = () => {
             <WalletProvider>
               <AsideMenuStats />
             </WalletProvider>
-            <AsideMenuProgress />
+            <ActivityProvider>
+              <AsideMenuProgress />
+            </ActivityProvider>
             <AsideMenu />
             <AsideMenuFranchise />
           </div>

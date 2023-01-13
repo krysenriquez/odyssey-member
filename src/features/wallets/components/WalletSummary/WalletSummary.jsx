@@ -3,7 +3,7 @@ import {useEffect, useMemo} from 'react'
 import {walletSummaryColumn} from './WalletSummaryColumn'
 import {CustomModal} from '@/components/elements/Modal/CustomModal'
 import {CustomCard} from '@/components/elements/Card'
-import {CustomTable} from '@/components/elements/Table/CustomTable'
+import {CustomTable2} from '@/components/elements/Table/CustomTable2'
 import {TableLoading} from '@/components/elements/Table/TableLoading'
 import {toPointValue} from '@/utils/toCurrency'
 
@@ -15,7 +15,7 @@ export const WalletSummary = () => {
   return (
     <>
       <CustomCard resetSidePaddings={true}>
-        <CustomTable
+        <CustomTable2
           {...{
             data: tableData,
             columns: tableColumns,

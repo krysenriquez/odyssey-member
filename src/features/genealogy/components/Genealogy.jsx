@@ -72,10 +72,10 @@ export const GenealogyTree = () => {
             count: object.allLeftChildrenCount ? object.allLeftChildrenCount : '',
           }
           addMember2 = {
-            tags: ['addMember'],
-            id: 'add_right_' + object.accountId,
-            name: 'Add Member',
-            avatar: blankAvatar,
+            tags: object.path.includes('LEFT') ? ['blankMember'] : ['addMember'],
+            id: (object.path.includes('LEFT') ? 'blank_right' : 'add_right_') + object.accountId,
+            name: (object.path.includes('LEFT') ? 'Blank' : 'Add') + ' Member',
+            avatar: object.path.includes('LEFT') ? defaultDisabledAvatar : blankAvatar,
             pid: object.accountId,
             parentAccountNumber: object.accountNumber,
             parentName: object.accountFullName,
@@ -92,10 +92,10 @@ export const GenealogyTree = () => {
         // Condition if Child order is 2nd slot, and No Member on 1st slot
         else if (child.parentSide == 'RIGHT' && object.children.length == 1) {
           addMember1 = {
-            tags: ['addMember'],
-            id: 'add_left_' + object.accountId,
-            name: 'Add Member',
-            avatar: blankAvatar,
+            tags: object.path.includes('RIGHT') ? ['blankMember'] : ['addMember'],
+            id: (object.path.includes('RIGHT') ? 'blank_left' : 'add_left_') + object.accountId,
+            name: (object.path.includes('RIGHT') ? 'Blank' : 'Add') + ' Member',
+            avatar: object.path.includes('RIGHT') ? defaultDisabledAvatar : blankAvatar,
             pid: object.accountId,
             parentAccountNumber: object.accountNumber,
             parentName: object.accountFullName,
@@ -135,7 +135,6 @@ export const GenealogyTree = () => {
             parentAccountNumber: object.accountNumber,
             parentName: object.accountFullName,
             parentSide: child.parentSide,
-            path: [child.parentSide],
             count:
               child.parentSide == 'LEFT'
                 ? object.allLeftChildrenCount
@@ -148,10 +147,10 @@ export const GenealogyTree = () => {
       })
     } else if (object.children && object.children.length == 0) {
       addMember1 = {
-        tags: ['addMember'],
-        id: 'add_left_' + object.accountId,
-        name: 'Add Member',
-        avatar: blankAvatar,
+        tags: object.path.includes('RIGHT') ? ['blankMember'] : ['addMember'],
+        id: (object.path.includes('RIGHT') ? 'blank_left' : 'add_left_') + object.accountId,
+        name: (object.path.includes('RIGHT') ? 'Blank' : 'Add') + ' Member',
+        avatar: object.path.includes('RIGHT') ? defaultDisabledAvatar : blankAvatar,
         pid: object.accountId,
         parentAccountNumber: object.accountNumber,
         parentName: object.accountFullName,
@@ -163,10 +162,10 @@ export const GenealogyTree = () => {
         count: object.allLeftChildrenCount ? object.allLeftChildrenCount : '',
       }
       addMember2 = {
-        tags: ['addMember'],
-        id: 'add_right_' + object.accountId,
-        name: 'Add Member',
-        avatar: blankAvatar,
+        tags: object.path.includes('LEFT') ? ['blankMember'] : ['addMember'],
+        id: (object.path.includes('LEFT') ? 'blank_right' : 'add_right_') + object.accountId,
+        name: (object.path.includes('LEFT') ? 'Blank' : 'Add') + ' Member',
+        avatar: object.path.includes('LEFT') ? defaultDisabledAvatar : blankAvatar,
         pid: object.accountId,
         parentAccountNumber: object.accountNumber,
         parentName: object.accountFullName,
@@ -215,7 +214,7 @@ export const GenealogyTree = () => {
           addMember2 = {
             tags: parentObject.path.includes('LEFT') ? ['blankMember'] : ['addMember'],
             id:
-              (parentObject.path.includes('LEFT') ? 'blank_left' : 'add_left_') +
+              (parentObject.path.includes('LEFT') ? 'blank_right' : 'add_right_') +
               parentObject.accountId,
             name: (parentObject.path.includes('LEFT') ? 'Blank' : 'Add') + ' Member',
             avatar: parentObject.path.includes('LEFT') ? defaultDisabledAvatar : blankAvatar,

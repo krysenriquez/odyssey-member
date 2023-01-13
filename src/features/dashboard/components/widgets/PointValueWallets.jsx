@@ -37,7 +37,7 @@ export const PointValueWallets = () => {
           </span>
         </div>
       </div>
-      <div className='card-body mt-n12'>
+      <div className='card-body mt-n15'>
         <div className='mt-n20 position-relative'>
           <div className='row g-3 g-lg-6'>
             {pvWallets ? (
@@ -47,7 +47,7 @@ export const PointValueWallets = () => {
                   return (
                     <div className='col-6' key={pvWallet.wallet}>
                       <div className='bg-gray-100 bg-opacity-70 rounded-2 px-6 py-5'>
-                        <div className='symbol symbol-30px me-5 mb-8'>
+                        <div className='symbol symbol-30px me-5 mb-4'>
                           <span className='symbol-label'>
                             <CustomSVG
                               path='/media/icons/general/box.svg'
@@ -56,7 +56,7 @@ export const PointValueWallets = () => {
                           </span>
                         </div>
                         <div className='d-flex flex-wrap flex-column align-items-start gap-10'>
-                          <div className='mb-8'>
+                          <div className='mb-4'>
                             <span className='text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1'>
                               {toPointValue(pvWallet.total)}
                             </span>
@@ -69,6 +69,12 @@ export const PointValueWallets = () => {
                               {toPointValue(pvWallet.runningTotal)}
                             </span>
                             <span className='text-gray-500 fw-semibold fs-6'>Total</span>
+                          </div>
+                          <div className=''>
+                            <span className='text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1'>
+                              {toPointValue(pvWallet.flushoutTotal)}
+                            </span>
+                            <span className='text-gray-500 fw-semibold fs-6'>Total Flushout</span>
                           </div>
                         </div>
                       </div>

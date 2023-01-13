@@ -17,7 +17,7 @@ export const ActivitySummaryCount = () => {
         </div>
         <div
           className='bg-body shadow-sm card-rounded mx-9 px-6 py-9 position-relative z-index-1'
-          style={{marginTop: '-150px'}}
+          style={{marginTop: '-120px'}}
         >
           {activitySummaryCount ? (
             activitySummaryCount.map((activity) => {
