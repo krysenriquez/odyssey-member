@@ -389,7 +389,6 @@ export const GenealogyTree = () => {
           <div className='d-flex align-items-center position-relative'>
             <SearchAccount
               handleClick={searchAccount}
-              mask='*****'
               className='form-control form-control-solid w-250px'
               placeholder='Enter Account Number'
             />

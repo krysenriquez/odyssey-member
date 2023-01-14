@@ -15,7 +15,7 @@ export function SearchAccount(props) {
       <span className='input-group-text border-0'>
         <CustomSVG path='/media/icons/search.svg' className='svg-icon-1' />
       </span>
-      <InputMask mask={mask} {...rest} value={value} onChange={(e) => setValue(e.target.value)} />
+      <input {...rest} type='text' value={value} onChange={(e) => setValue(e.target.value)} />
       <button
         type='button'
         className='btn btn-active-primary btn-sm'
