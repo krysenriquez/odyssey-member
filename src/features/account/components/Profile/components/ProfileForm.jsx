@@ -115,7 +115,7 @@ export const ProfileForm = (props) => {
           initialValues={initialProfile}
           onSubmit={submit}
         >
-          {() => (
+          {(actions) => (
             <Form className='form' id={formId}>
               <div className='card-body border-top p-9'>
                 <div className='row'>
@@ -161,8 +161,18 @@ export const ProfileForm = (props) => {
                 <button type='reset' className='btn btn-light btn-active-light-primary me-2'>
                   Discard
                 </button>
-                <button type='submit' className='btn btn-primary'>
-                  Save Changes
+                <button
+                  type='submit'
+                  className='btn btn-primary'
+                  disabled={actions.isSubmitting || !actions.isValid}
+                >
+                  {!actions.isSubmitting && <span className='indicator-label'> Save Changes</span>}
+                  {actions.isSubmitting && (
+                    <span className='indicator-progress' style={{display: 'block'}}>
+                      Please wait...
+                      <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
+                    </span>
+                  )}
                 </button>
               </div>
             </Form>
