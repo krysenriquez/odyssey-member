@@ -8,7 +8,6 @@ import {
 import {CustomCardOverlay} from '@/components/elements/Card'
 import {toAbsoluteUrl} from '@/utils/toAbsoluteUrl'
 import {CustomSVG} from '@/components/elements/SVG/CustomSVG'
-import {DebouncedInput} from '@/components/elements/Input/DebouncedInput'
 import {SearchAccount} from '@/components/elements/Input/SearchAccount'
 import {GenealogyCreate} from './GenealogyCreate'
 import {OrganizationalChart} from '@/components/elements/OrgChart'
@@ -57,6 +56,12 @@ export const GenealogyDeeTree = () => {
     if (object.children && object.children.length > 0) {
       // Loop through children object
       object.children.forEach((child) => {
+        var avatar
+        if (child.avatar) {
+          avatar = child.avatar
+        } else {
+          avatar = blankAvatar
+        }
         // Condition if Child order is 1st slot, and No Member on 2nd slot
         if (child.parentSide == 'LEFT' && object.children.length == 1) {
           childMember = {
@@ -73,10 +78,10 @@ export const GenealogyDeeTree = () => {
             count: object.allLeftChildrenCount ? object.allLeftChildrenCount : '',
           }
           addMember2 = {
-            tags: ['addMember'],
-            id: 'add_right_' + object.accountId,
-            name: 'Add Member',
-            avatar: blankAvatar,
+            tags: object.path.includes('LEFT') ? ['blankMember'] : ['addMember'],
+            id: (object.path.includes('LEFT') ? 'blank_right' : 'add_right_') + object.accountId,
+            name: (object.path.includes('LEFT') ? 'Blank' : 'Add') + ' Member',
+            avatar: object.path.includes('LEFT') ? defaultDisabledAvatar : blankAvatar,
             parentId: object.accountId,
             parentAccountNumber: object.accountNumber,
             parentName: object.accountFullName,
@@ -93,10 +98,10 @@ export const GenealogyDeeTree = () => {
         // Condition if Child order is 2nd slot, and No Member on 1st slot
         else if (child.parentSide == 'RIGHT' && object.children.length == 1) {
           addMember1 = {
-            tags: ['addMember'],
-            id: 'add_left_' + object.accountId,
-            name: 'Add Member',
-            avatar: blankAvatar,
+            tags: object.path.includes('RIGHT') ? ['blankMember'] : ['addMember'],
+            id: (object.path.includes('RIGHT') ? 'blank_left' : 'add_left_') + object.accountId,
+            name: (object.path.includes('RIGHT') ? 'Blank' : 'Add') + ' Member',
+            avatar: object.path.includes('RIGHT') ? defaultDisabledAvatar : blankAvatar,
             parentId: object.accountId,
             parentAccountNumber: object.accountNumber,
             parentName: object.accountFullName,
@@ -136,7 +141,6 @@ export const GenealogyDeeTree = () => {
             parentAccountNumber: object.accountNumber,
             parentName: object.accountFullName,
             parentSide: child.parentSide,
-            path: [child.parentSide],
             count:
               child.parentSide == 'LEFT'
                 ? object.allLeftChildrenCount
@@ -149,10 +153,10 @@ export const GenealogyDeeTree = () => {
       })
     } else if (object.children && object.children.length == 0) {
       addMember1 = {
-        tags: ['addMember'],
-        id: 'add_left_' + object.accountId,
-        name: 'Add Member',
-        avatar: blankAvatar,
+        tags: object.path.includes('RIGHT') ? ['blankMember'] : ['addMember'],
+        id: (object.path.includes('RIGHT') ? 'blank_left' : 'add_left_') + object.accountId,
+        name: (object.path.includes('RIGHT') ? 'Blank' : 'Add') + ' Member',
+        avatar: object.path.includes('RIGHT') ? defaultDisabledAvatar : blankAvatar,
         parentId: object.accountId,
         parentAccountNumber: object.accountNumber,
         parentName: object.accountFullName,
@@ -164,10 +168,10 @@ export const GenealogyDeeTree = () => {
         count: object.allLeftChildrenCount ? object.allLeftChildrenCount : '',
       }
       addMember2 = {
-        tags: ['addMember'],
-        id: 'add_right_' + object.accountId,
-        name: 'Add Member',
-        avatar: blankAvatar,
+        tags: object.path.includes('LEFT') ? ['blankMember'] : ['addMember'],
+        id: (object.path.includes('LEFT') ? 'blank_right' : 'add_right_') + object.accountId,
+        name: (object.path.includes('LEFT') ? 'Blank' : 'Add') + ' Member',
+        avatar: object.path.includes('LEFT') ? defaultDisabledAvatar : blankAvatar,
         parentId: object.accountId,
         parentAccountNumber: object.accountNumber,
         parentName: object.accountFullName,
@@ -393,8 +397,7 @@ export const GenealogyDeeTree = () => {
           <div className='d-flex align-items-center position-relative'>
             <SearchAccount
               handleClick={searchAccount}
-              mask='*****'
-              className='form-control form-control-solid w-250px'
+              className='form-control form-control-solid w-xl-250px'
               placeholder='Enter Account Number'
             />
           </div>
@@ -423,12 +426,7 @@ export const GenealogyDeeTree = () => {
             </button>
           </div>
         </div>
-        <OrganizationalChart
-          nodes={tree}
-          handleClick={clickNode}
-          parentNode={history[currentHistoryIndex]}
-        />
-        {/* {tree.length > 0 ? <GenealogyChart nodes={tree} handleClick={clickNode} /> : <></>} */}
+        <OrganizationalChart nodes={tree} handleClick={clickNode} />
       </CustomCardOverlay>
       {isModalOpen && (
         <GenealogyCreate isModalOpen={isModalOpen} toggleModal={toggleModal} node={selectedNode} />

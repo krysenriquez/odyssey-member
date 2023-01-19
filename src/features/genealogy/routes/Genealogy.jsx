@@ -12,7 +12,7 @@ export const Genealogy = () => {
   return (
     <GenealogyRequestProvider>
       <GenealogyQueryProvider>
-        <GenealogyTree />
+        <GenealogyDeeTree />
       </GenealogyQueryProvider>
     </GenealogyRequestProvider>
   )

@@ -4,6 +4,7 @@ import {toAbsoluteUrl} from '@/utils/toAbsoluteUrl'
 
 const HeaderUser = () => {
   const {currentUser, logout} = useAuth()
+  const blankAvatar = toAbsoluteUrl('/media/avatars/blank.png')
 
   return (
     <>
@@ -15,7 +16,7 @@ const HeaderUser = () => {
       >
         <img
           className='symbol symbol-circle symbol-35px symbol-md-40px'
-          src={toAbsoluteUrl('/media/avatars/blank.png')}
+          src={currentUser?.userAvatar ? currentUser?.userAvatar : blankAvatar}
           alt='user'
         />
       </div>
@@ -26,7 +27,10 @@ const HeaderUser = () => {
         <div className='menu-item px-3'>
           <div className='menu-content d-flex align-items-center px-3'>
             <div className='symbol symbol-50px me-5'>
-              <img alt='Logo' src={toAbsoluteUrl('/media/avatars/blank.png')} />
+              <img
+                alt='Logo'
+                src={currentUser?.userAvatar ? currentUser?.userAvatar : blankAvatar}
+              />
             </div>
 
             <div className='d-flex flex-column'>
@@ -39,14 +43,12 @@ const HeaderUser = () => {
             </div>
           </div>
         </div>
-
         <div className='separator my-2'></div>
-
-        {/* <div className='menu-item px-5'>
-          <Link to={'/crafted/pages/profile'} className='menu-link px-5'>
+        <div className='menu-item px-5'>
+          <Link to={'/profile'} className='menu-link px-5'>
             My Profile
           </Link>
-        </div> */}
+        </div>
 
         {/* <div className='menu-item px-5'>
           <a href='#' className='menu-link px-5'>

@@ -61,7 +61,7 @@ const AuthInit = ({children}) => {
     const requestUser = async (apiToken) => {
       try {
         if (!didRequest.current) {
-          const {data} = await getUserByToken(apiToken)
+          const data = await getUserByToken(apiToken)
           if (data) {
             setCurrentUser(data)
           }

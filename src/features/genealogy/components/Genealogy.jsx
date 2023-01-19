@@ -29,12 +29,12 @@ export const GenealogyTree = () => {
 
   const fourthGenJSON = (object) => {
     // Start Condition for Avatar if it exists
-    var avatar
+    var parentAvatar
     var blankAvatar = defaultAvatar
     if (object.avatar) {
-      avatar = object.avatar
+      parentAvatar = object.avatar
     } else {
-      avatar = blankAvatar
+      parentAvatar = blankAvatar
     }
     // End Condition for Avatar if it exists
     // Start Parent Object
@@ -43,7 +43,7 @@ export const GenealogyTree = () => {
       id: object.accountId,
       accountNumber: object.accountNumber,
       name: object.accountFullName,
-      avatar: avatar,
+      avatar: parentAvatar,
       packageName: object.packageName,
     }
     jsonTree.push(parent)
@@ -56,6 +56,12 @@ export const GenealogyTree = () => {
     if (object.children && object.children.length > 0) {
       // Loop through children object
       object.children.forEach((child) => {
+        var avatar
+        if (child.avatar) {
+          avatar = child.avatar
+        } else {
+          avatar = blankAvatar
+        }
         // Condition if Child order is 1st slot, and No Member on 2nd slot
         if (child.parentSide == 'LEFT' && object.children.length == 1) {
           childMember = {

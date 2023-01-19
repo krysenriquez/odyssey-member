@@ -125,9 +125,9 @@ class StickyComponent {
 
     if (release) {
       if (release.offsetTop - release.clientHeight > st) {
-        this.element.setAttribute('data-kt-sticky-released', 'on')
+        this.element.setAttribute('data-sticky-released', 'on')
       } else {
-        this.element.removeAttribute('data-kt-sticky-released')
+        this.element.removeAttribute('data-sticky-released')
       }
     }
   }

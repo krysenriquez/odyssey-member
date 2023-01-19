@@ -1,9 +1,10 @@
 import React, {useState, useRef, useLayoutEffect} from 'react'
 import {OrgChart} from 'd3-org-chart'
 import {useEffect} from 'react'
+import {CustomSVG} from '../SVG/CustomSVG'
 
 export const OrganizationalChart = (props) => {
-  const {nodes, handleClick, parentNode} = props
+  const {nodes, handleClick} = props
   const divRef = useRef()
   let chart = null
 
@@ -16,7 +17,7 @@ export const OrganizationalChart = (props) => {
         .container(divRef.current)
         .data(nodes)
         .setActiveNodeCentered(true)
-        .expandLevel(5)
+        .rootMargin(100)
         .nodeWidth((d) => 200)
         .nodeHeight((d) => 120)
         .siblingsMargin((d) => 15)
@@ -50,5 +51,33 @@ export const OrganizationalChart = (props) => {
     }
   }, [nodes])
 
-  return <div id='binary-tree' ref={divRef}></div>
+  return (
+    <>
+      <div className='d-flex flex-wrap align-items-center gap-4 mb-8'>
+        <button
+          type='button'
+          className='btn btn-active-light-primary'
+          onClick={() => chart.collapseAll()}
+        >
+          <CustomSVG
+            path='/media/icons/arrows/double-caret-up.svg'
+            className='svg-icon svg-icon-1'
+          />
+          <span>Collapse All</span>
+        </button>
+        <button
+          type='button'
+          className='btn btn-active-light-primary'
+          onClick={() => chart.expandAll()}
+        >
+          <CustomSVG
+            path='/media/icons/arrows/double-caret-down.svg'
+            className='svg-icon svg-icon-1'
+          />
+          <span>Expand All</span>
+        </button>
+      </div>
+      <div id='binary-tree' ref={divRef}></div>
+    </>
+  )
 }

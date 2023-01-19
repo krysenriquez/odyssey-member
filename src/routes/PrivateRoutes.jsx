@@ -8,6 +8,7 @@ const PrivateRoutes = () => {
   const Genealogy = lazy(() => import('@/features/genealogy/routes'))
   const Codes = lazy(() => import('@/features/codes/routes'))
   const Cashouts = lazy(() => import('@/features/cashouts/routes'))
+  const Account = lazy(() => import('@/features/account/routes'))
 
   const routes = useRoutes([
     {
@@ -44,6 +45,14 @@ const PrivateRoutes = () => {
           element: (
             <SuspensedView>
               <Cashouts />
+            </SuspensedView>
+          ),
+        },
+        {
+          path: 'profile/*',
+          element: (
+            <SuspensedView>
+              <Account />
             </SuspensedView>
           ),
         },
